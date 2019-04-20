@@ -470,13 +470,14 @@
             whatsUpp.tray.setToolTip('WhatsUpp');
         },
 
-        clearCache() {
-            log.info("Clearing cache");
-            try {
-                fileSystem.unlinkSync(app.getPath('userData') + '/Application Cache/Index');
-            } catch(e) {
-                log.warn("Error clearing cache: " + e);
-            }
+       clearCache() {
+           log.info("Clearing cache");
+           try {
+               // fileSystem.unlinkSync(app.getPath('userData') + '/Application Cache/Index');
+               fileSystem.removeSync(app.getPath('userData') + '/Service Worker/');
+           } catch(e) {
+               log.warn("Error clearing cache: " + e);
+           };
         },
 
         openWindow() {
@@ -503,7 +504,10 @@
                 window: whatsUpp.window
             });
 
-            whatsUpp.window.loadURL('https://web.whatsapp.com');
+//            whatsUpp.window.loadURL('https://web.whatsapp.com');
+            // Use a 'safe' User-Agent
+            whatsUpp.window.loadURL('https://web.whatsapp.com', {userAgent: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36'});
+
 
             whatsUpp.window.webContents.on('did-finish-load', function() {
                 if (groupLinkOpenRequested != null) {
