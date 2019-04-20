@@ -1,8 +1,8 @@
-# Whatsapp Desktop translations.
+# WhatsUpp translations.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Whatsapp-Desktop\n"
+"Project-Id-Version: WhatsUpp\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-08-05 17:02+0300\n"
 "PO-Revision-Date: 2017-08-05 17:02+0300\n"

@@ -20,11 +20,11 @@ set -e
 case "$1" in
 
   configure)
-    ln -s /opt/whatsapp-desktop/WhatsApp /usr/local/bin/WhatsApp
+    ln -s /opt/whatsupp/WhatsUpp /usr/local/bin/WhatsUpp
   ;;
 
   abort-upgrade|abort-remove|abort-deconfigure)
-    rm -f /usr/local/bin/WhatsApp
+    rm -f /usr/local/bin/WhatsUpp
     exit 0
   ;;
 

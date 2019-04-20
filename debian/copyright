@@ -1,5 +1,5 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: whatsapp-desktop
+Upstream-Name: whatsupp
 Source: <url://example.com>
 
 Files: *
@@ -8,7 +8,7 @@ Copyright: <years> <put author's name and email here>
 License: GPL-3.0+
 
 Files: debian/*
-Copyright: 2017 Enrico204 <enrico204@gmail.com>
+Copyright: 2019 alindt <whatsupp@cevreau.eu>
 License: GPL-3.0+
 
 License: GPL-3.0+

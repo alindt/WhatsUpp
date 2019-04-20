@@ -182,7 +182,7 @@
     ];
 
     if (process.platform == 'darwin') {
-        var name = 'WhatsApp Desktop';
+        var name = 'WhatsUpp';
         template.unshift({
             label: "&" + name,
             submenu: [

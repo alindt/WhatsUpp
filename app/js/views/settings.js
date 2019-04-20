@@ -1,4 +1,4 @@
-var whatsApp = require('electron').remote.getGlobal("whatsApp");
+var whatsUpp = require('electron').remote.getGlobal("whatsUpp");
 var settings = require('electron').remote.getGlobal('settings');
 var config = require('electron').remote.getGlobal('config');
 const {dialog} = require('electron').remote;
@@ -114,7 +114,7 @@ var SettingsView = {
         }
         config.saveConfiguration();
         config.applyConfiguration();
-        whatsApp.window.reload();
+        whatsUpp.window.reload();
     }
 };
 

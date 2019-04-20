@@ -1,7 +1,7 @@
 {
   "osx": {
-    "title": "WhatsApp",
-    "icon": "assets/osx/whatsapp.icns",
+    "title": "WhatsUpp",
+    "icon": "assets/osx/whatsupp.icns",
     "icon-size": 80,
     "contents": [
       {
@@ -18,15 +18,15 @@
     ]
   },
   "win": {
-    "title": "WhatsApp",
-    "icon": "assets/win/whatsapp.ico",
+    "title": "WhatsUpp",
+    "icon": "assets/win/whatsupp.ico",
     "icon-size": 48,
-    "app-bundle-id": "WhatsApp"
+    "app-bundle-id": "WhatsUpp"
   },
   "linux": {
-    "title": "WhatsApp",
-    "icon": "assets/win/whatsapp.ico",
+    "title": "WhatsUpp",
+    "icon": "assets/win/whatsupp.ico",
     "icon-size": 48,
-    "app-bundle-id": "WhatsApp"
+    "app-bundle-id": "WhatsUpp"
   }
 }

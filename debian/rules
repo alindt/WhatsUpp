@@ -22,25 +22,25 @@ include /usr/share/dpkg/default.mk
 	dh $@
 
 binary-arch:
-	mkdir -p debian/whatsapp-desktop/opt/whatsapp-desktop/
-	mkdir -p debian/whatsapp-desktop/usr/share/applications/
-	mkdir -p debian/whatsapp-desktop/usr/share/metainfo/
-	mkdir -p debian/whatsapp-desktop/usr/share/icons/hicolor/128x128/apps/
-	mkdir -p debian/whatsapp-desktop/usr/share/icons/hicolor/64x64/apps/
-	cp "app/assets/icon/icon@2x.png" debian/whatsapp-desktop/usr/share/icons/hicolor/128x128/apps/whatsapp.png
-	cp "app/assets/icon/icon.png" debian/whatsapp-desktop/usr/share/icons/hicolor/64x64/apps/whatsapp.png
-	cp whatsappdesktop.desktop debian/whatsapp-desktop/usr/share/applications/
-	cp it.enrico204.whatsapp-desktop.appdata.xml debian/whatsapp-desktop/usr/share/metainfo/
+	mkdir -p debian/whatsupp/opt/whatsupp/
+	mkdir -p debian/whatsupp/usr/share/applications/
+	mkdir -p debian/whatsupp/usr/share/metainfo/
+	mkdir -p debian/whatsupp/usr/share/icons/hicolor/128x128/apps/
+	mkdir -p debian/whatsupp/usr/share/icons/hicolor/64x64/apps/
+	cp "app/assets/icon/icon@2x.png" debian/whatsupp/usr/share/icons/hicolor/128x128/apps/whatsupp.png
+	cp "app/assets/icon/icon.png" debian/whatsupp/usr/share/icons/hicolor/64x64/apps/whatsupp.png
+	cp whatsupp.desktop debian/whatsupp/usr/share/applications/
+	cp eu.alindt.whatsupp.appdata.xml debian/whatsupp/usr/share/metainfo/
 ifeq ($(DEB_HOST_ARCH),)
 	echo "Target architecture not specified"
 	exit 1
 endif
 
 ifeq ($(DEB_HOST_ARCH),armhf)
-	cp -r dist/WhatsApp-linux-armv7l/* debian/whatsapp-desktop/opt/whatsapp-desktop/
+	cp -r dist/WhatsUpp-linux-armv7l/* debian/whatsupp/opt/whatsupp/
 endif
 ifeq ($(DEB_HOST_ARCH),amd64)
-	cp -r dist/WhatsApp-linux-x64/* debian/whatsapp-desktop/opt/whatsapp-desktop/
+	cp -r dist/WhatsUpp-linux-x64/* debian/whatsupp/opt/whatsupp/
 endif
 
 # debmake generated override targets

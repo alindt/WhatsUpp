@@ -9,7 +9,7 @@ fi
 editor package.json
 editor app/package.json
 editor debian/changelog
-editor whatsapp-desktop.spec
-editor it.enrico204.whatsapp-desktop.appdata.xml
+editor whatsupp.spec
+editor eu.alindt.whatsupp.appdata.xml
 
 yarn

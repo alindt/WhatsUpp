@@ -20,11 +20,11 @@
     var ContextMenu = require('electron-context-menu');
 
     const isAlreadyRunning = app.makeSingleInstance((argv, workingDir) => {
-        if (whatsApp.window) {
-            if (whatsApp.window.isMinimized()) {
-                whatsApp.window.restore();
+        if (whatsUpp.window) {
+            if (whatsUpp.window.isMinimized()) {
+                whatsUpp.window.restore();
             }
-            whatsApp.window.show();
+            whatsUpp.window.show();
         }
 
         var groupLinkOpenRequested = null;
@@ -38,7 +38,7 @@
             }
         }
         if (groupLinkOpenRequested != null) {
-            whatsApp.window.webContents.executeJavaScript(
+            whatsUpp.window.webContents.executeJavaScript(
                 "var el = document.createElement('a');\
                 el.href = \"" + groupLinkOpenRequested + "\"; \
                 el.style.display = \"none\"; \
@@ -55,7 +55,7 @@
         app.quit();
     }
 
-    app.setAppUserModelId("it.enrico204.whatsapp-desktop");
+    app.setAppUserModelId("eu.alindt.whatsupp");
     app.setAsDefaultProtocolClient("whatsapp");
 
     if (process.argv.indexOf("--debug-log") >= 0) {
@@ -174,9 +174,9 @@
         applyConfiguration() {
             log.info("Applying configuration");
             if (config.get("maximized") && config.get("startminimized") != true) {
-                whatsApp.window.maximize();
+                whatsUpp.window.maximize();
             }
-            whatsApp.window.webContents.on('dom-ready', function (event, two) {
+            whatsUpp.window.webContents.on('dom-ready', function (event, two) {
                 var fontSize = config.get("fontSize");
                 fontSize = (fontSize == undefined) ? "normal" : fontSize;
                 var fontCSS = (fontSize != "normal") ? "font-size:" + fontSize + " !important;" : "";
@@ -248,7 +248,7 @@
             });
 
             if (config.get("useProxy")) {
-                var session = whatsApp.window.webContents.session;
+                var session = whatsUpp.window.webContents.session;
                 var httpProxy = config.get("httpProxy");
                 var httpsProxy = config.get("httpsProxy") || httpProxy;
                 if(httpProxy) {
@@ -263,27 +263,27 @@
             if (process.platform == 'darwin') {
                 const dockMenu = AppMenu.buildFromTemplate([
                   {label: 'Show main window', click () {
-                      whatsApp.window.show();
-                      whatsApp.window.setAlwaysOnTop(true);
-                      whatsApp.window.focus();
-                      whatsApp.window.setAlwaysOnTop(false);
+                      whatsUpp.window.show();
+                      whatsUpp.window.setAlwaysOnTop(true);
+                      whatsUpp.window.focus();
+                      whatsUpp.window.setAlwaysOnTop(false);
                   }}
                 ])
                 app.dock.setMenu(dockMenu);
                 app.on('activate', (event, hasVisibleWindows) => {
-                    whatsApp.window.show();
-                    whatsApp.window.setAlwaysOnTop(true);
-                    whatsApp.window.focus();
-                    whatsApp.window.setAlwaysOnTop(false);
+                    whatsUpp.window.show();
+                    whatsUpp.window.setAlwaysOnTop(true);
+                    whatsUpp.window.focus();
+                    whatsUpp.window.setAlwaysOnTop(false);
                 });
             }
 
-            if (config.get("trayicon") != false && whatsApp.tray == undefined) {
-                whatsApp.createTray();
-            } else if (config.get("trayicon") == false && whatsApp.tray != undefined) {
+            if (config.get("trayicon") != false && whatsUpp.tray == undefined) {
+                whatsUpp.createTray();
+            } else if (config.get("trayicon") == false && whatsUpp.tray != undefined) {
                 log.info("Destroying tray icon");
-                whatsApp.tray.destroy();
-                whatsApp.tray = undefined;
+                whatsUpp.tray.destroy();
+                whatsUpp.tray = undefined;
             }
             if (config.get("autostart") == true) {
                 autolauncher.isEnabled().then(function(enabled) {
@@ -300,8 +300,8 @@
                     }
                 });
             }
-            whatsApp.window.setMenuBarVisibility(config.get("autoHideMenuBar") != true);
-            whatsApp.window.setAutoHideMenuBar(config.get("autoHideMenuBar") == true);
+            whatsUpp.window.setMenuBarVisibility(config.get("autoHideMenuBar") != true);
+            whatsUpp.window.setAutoHideMenuBar(config.get("autoHideMenuBar") == true);
         },
 
         saveConfiguration() {
@@ -311,7 +311,7 @@
             }
             config.saveTimeout = setTimeout(function() {
                 log.info("Saving configuration");
-                config.set("maximized", whatsApp.window.isMaximized());
+                config.set("maximized", whatsUpp.window.isMaximized());
                 if (config.currentSettings == undefined || JSON.stringify(config.currentSettings) == "") {
                     // TODO: if we land here, we need to figure why and how. And fix that
                     log.error("Configuration empty! This should not happen!");
@@ -339,79 +339,79 @@
 
     global.config.init();
 
-    global.whatsApp = {
+    global.whatsUpp = {
         init() {
-            global.whatsApp.warningIcon = false;
-            whatsApp.tray = undefined;
-            whatsApp.createMenu();
+            global.whatsUpp.warningIcon = false;
+            whatsUpp.tray = undefined;
+            whatsUpp.createMenu();
             // Bitmask: LSB
             // First bit: warning icon (phone disconnected)
             // Second bit: new message red-dot
-            global.whatsApp.iconStatus = 0;
-            global.whatsApp.oldIconStatus = 0;
-            global.whatsApp.newVersion = null;
+            global.whatsUpp.iconStatus = 0;
+            global.whatsUpp.oldIconStatus = 0;
+            global.whatsUpp.newVersion = null;
 
-            whatsApp.clearCache();
-            whatsApp.openWindow();
+            whatsUpp.clearCache();
+            whatsUpp.openWindow();
             config.applyConfiguration();
         },
 
         createMenu() {
             log.info("Creating menu");
-            whatsApp.menu =
+            whatsUpp.menu =
                 AppMenu.buildFromTemplate(require('./menu'));
-                AppMenu.setApplicationMenu(whatsApp.menu);
+                AppMenu.setApplicationMenu(whatsUpp.menu);
         },
 
         setNormalTray() {
-            global.whatsApp.iconStatus = global.whatsApp.iconStatus & 0xFFFFFFFE;
-            global.whatsApp.updateTrayIcon();
+            global.whatsUpp.iconStatus = global.whatsUpp.iconStatus & 0xFFFFFFFE;
+            global.whatsUpp.updateTrayIcon();
         },
 
         setWarningTray() {
-            global.whatsApp.iconStatus = global.whatsApp.iconStatus | 0x00000001;
-            global.whatsApp.updateTrayIcon();
+            global.whatsUpp.iconStatus = global.whatsUpp.iconStatus | 0x00000001;
+            global.whatsUpp.updateTrayIcon();
         },
 
         isWarningTrayIcon() {
-            return (global.whatsApp.iconStatus & 0x1) > 0;
+            return (global.whatsUpp.iconStatus & 0x1) > 0;
         },
 
         setNewMessageIcon() {
-            global.whatsApp.iconStatus = global.whatsApp.iconStatus | 0x00000002;
-            global.whatsApp.updateTrayIcon();
+            global.whatsUpp.iconStatus = global.whatsUpp.iconStatus | 0x00000002;
+            global.whatsUpp.updateTrayIcon();
         },
 
         clearNewMessageIcon() {
-            global.whatsApp.iconStatus = global.whatsApp.iconStatus & 0xFFFFFFFD;
-            global.whatsApp.updateTrayIcon();
+            global.whatsUpp.iconStatus = global.whatsUpp.iconStatus & 0xFFFFFFFD;
+            global.whatsUpp.updateTrayIcon();
         },
 
         isNewMessageIcon() {
-            return (global.whatsApp.iconStatus & 0x2) > 0;
+            return (global.whatsUpp.iconStatus & 0x2) > 0;
         },
 
         updateTrayIcon() {
-            if (global.whatsApp.oldIconStatus == global.whatsApp.iconStatus) {
+            if (global.whatsUpp.oldIconStatus == global.whatsUpp.iconStatus) {
                 return;
             }
-            if (whatsApp.tray != undefined && process.platform != 'darwin') {
-                if (global.whatsApp.isWarningTrayIcon() && !global.whatsApp.isNewMessageIcon()) {
+            if (whatsUpp.tray != undefined && process.platform != 'darwin') {
+                if (global.whatsUpp.isWarningTrayIcon() && !global.whatsUpp.isNewMessageIcon()) {
                     log.info("Setting tray icon to warning");
-                    whatsApp.tray.setImage(__dirname + '/assets/icon/iconWarning.png');
-                } if (global.whatsApp.isWarningTrayIcon() && global.whatsApp.isNewMessageIcon()) {
+                    whatsUpp.tray.setImage(__dirname + '/assets/icon/iconWarning.png');
+                } if (global.whatsUpp.isWarningTrayIcon() && global.whatsUpp.isNewMessageIcon()) {
                     log.info("Setting tray icon to warning with messages");
-                    whatsApp.tray.setImage(__dirname + '/assets/icon/iconWarningWithMsg.png');
-                } if (!global.whatsApp.isWarningTrayIcon() && global.whatsApp.isNewMessageIcon()) {
+                    whatsUpp.tray.setImage(__dirname + '/assets/icon/iconWarningWithMsg.png');
+                } if (!global.whatsUpp.isWarningTrayIcon() && global.whatsUpp.isNewMessageIcon()) {
                     log.info("Setting tray icon to normal with messages");
-                    whatsApp.tray.setImage(__dirname + '/assets/icon/iconWithMsg.png');
+                    whatsUpp.tray.setImage(__dirname + '/assets/icon/iconWithMsg.png');
                 } else {
                     log.info("Setting tray icon to normal");
-                    whatsApp.tray.setImage(__dirname + '/assets/icon/icon.png');
+                    whatsUpp.tray.setImage(__dirname + '/assets/icon/icon.png');
                 }
-                log.info("Mask value: " + global.whatsApp.iconStatus);
+                log.info("Mask value: " + global.whatsUpp.iconStatus);
             }
-            global.whatsApp.oldIconStatus = global.whatsApp.iconStatus;
+            global.whatsUpp.oldIconStatus = global.whatsUpp.iconStatus;
         },
 
         createTray() {
@@ -421,53 +421,53 @@
             if (process.platform != 'darwin') {
                 trayImg = __dirname + '/assets/icon/icon.png';
             }
-            whatsApp.tray = new AppTray(trayImg);
+            whatsUpp.tray = new AppTray(trayImg);
 
             // Setting up a trayicon context menu
-            whatsApp.trayContextMenu = AppMenu.buildFromTemplate([
+            whatsUpp.trayContextMenu = AppMenu.buildFromTemplate([
                 {label: _('Show'),
                 visible: config.get("startminimized"), // Hide this option on start
                 click: function() {
-                    whatsApp.window.show();
-                    whatsApp.window.setAlwaysOnTop(true);
-                    whatsApp.window.focus();
-                    whatsApp.window.setAlwaysOnTop(false);
+                    whatsUpp.window.show();
+                    whatsUpp.window.setAlwaysOnTop(true);
+                    whatsUpp.window.focus();
+                    whatsUpp.window.setAlwaysOnTop(false);
                 }},
 
                 {label: _('Hide'),
                 visible: !config.get("startminimized"), // Show this option on start
                 click: function() {
-                    whatsApp.window.hide();
+                    whatsUpp.window.hide();
                 }},
 
-                // Quit WhatsApp
+                // Quit WhatsUpp
                 {label: _('Quit'), click: function() {
                     app.quit();
                 }}
             ]);
-            whatsApp.tray.setContextMenu(whatsApp.trayContextMenu);
+            whatsUpp.tray.setContextMenu(whatsUpp.trayContextMenu);
 
             // Normal this will show the main window, but electron under Linux
             // dosent work with the clicked event so we are using the above
             // contextmenu insted - Rightclick the trayicon and pick Show
-            // WhatsApp
+            // WhatsUpp
             // More info:
             // https://github.com/electron/electron/blob/master/docs/api/tray.md
             // See the Platform limitations section.
-            whatsApp.tray.on('clicked', () => {
-                whatsApp.window.show();
-                whatsApp.window.setAlwaysOnTop(true);
-                whatsApp.window.focus();
-                whatsApp.window.setAlwaysOnTop(false);
+            whatsUpp.tray.on('clicked', () => {
+                whatsUpp.window.show();
+                whatsUpp.window.setAlwaysOnTop(true);
+                whatsUpp.window.focus();
+                whatsUpp.window.setAlwaysOnTop(false);
             });
-            whatsApp.tray.on('click', () => {
-                whatsApp.window.show();
-                whatsApp.window.setAlwaysOnTop(true);
-                whatsApp.window.focus();
-                whatsApp.window.setAlwaysOnTop(false);
+            whatsUpp.tray.on('click', () => {
+                whatsUpp.window.show();
+                whatsUpp.window.setAlwaysOnTop(true);
+                whatsUpp.window.focus();
+                whatsUpp.window.setAlwaysOnTop(false);
             });
 
-            whatsApp.tray.setToolTip('WhatsApp Desktop');
+            whatsUpp.tray.setToolTip('WhatsUpp');
         },
 
         clearCache() {
@@ -481,7 +481,7 @@
 
         openWindow() {
             log.info("Open main window");
-            whatsApp.window = new BrowserWindow({
+            whatsUpp.window = new BrowserWindow({
                 "y": config.get("posY"),
                 "x": config.get("posX"),
                 "width": config.get("width"),
@@ -489,7 +489,7 @@
                 "minWidth": 600,
                 "minHeight": 600,
                 //"type": "toolbar",
-                "title": "WhatsApp",
+                "title": "WhatsUpp",
                 "show": false,
                 "autoHideMenuBar": config.get("autoHideMenuBar") == true,
                 "icon": __dirname + "/assets/icon/icon.png",
@@ -500,14 +500,14 @@
             });
 
             ContextMenu({
-                window: whatsApp.window
+                window: whatsUpp.window
             });
 
-            whatsApp.window.loadURL('https://web.whatsapp.com');
+            whatsUpp.window.loadURL('https://web.whatsapp.com');
 
-            whatsApp.window.webContents.on('did-finish-load', function() {
+            whatsUpp.window.webContents.on('did-finish-load', function() {
                 if (groupLinkOpenRequested != null) {
-                    whatsApp.window.webContents.executeJavaScript(
+                    whatsUpp.window.webContents.executeJavaScript(
                         "var el = document.createElement('a');\
                         el.href = \"" + groupLinkOpenRequested + "\"; \
                         el.style.display = \"none\"; \
@@ -519,20 +519,20 @@
                     );
                 }
                 // Checking for new version
-                var ep = "https://api.github.com/repos/Enrico204/Whatsapp-Desktop/releases/latest";
+                var ep = "https://api.github.com/repos/alindt/WhatsUpp-PRIVATE/releases/latest";
                 log.info("Checking for new versions (current version "+pjson.version+")");
-                request.get({url: ep, headers:{'User-Agent':'Whatsapp-Desktop'}}, function(err, response, body) {
+                request.get({url: ep, headers:{'User-Agent':'WhatsUpp'}}, function(err, response, body) {
                     if (!err && response != undefined && response.statusCode == 200) {
                         var ghinfo = JSON.parse(body);
-                        global.whatsApp.newVersion = ghinfo['tag_name'];
+                        global.whatsUpp.newVersion = ghinfo['tag_name'];
                         if (ghinfo['tag_name'][0] == 'v'
                                 && ghinfo['tag_name'] != "v"+pjson.version
                                 && ghinfo['tag_name'].indexOf("beta") == -1) {
                             log.info("A new version is available: " + ghinfo['tag_name']);
                             var options = {
-                                title: "Whatsapp-Desktop",
-                                message: "A new version is available, download it at https://github.com/Enrico204/Whatsapp-Desktop",
-                                open: 'https://github.com/Enrico204/Whatsapp-Desktop/releases/latest',
+                                title: "WhatsUpp",
+                                message: "A new version is available, download it at https://github.com/alindt/WhatsUpp",
+                                open: 'https://github.com/alindt/WhatsUpp-PRIVATE/releases/latest',
                                 sound: true
                             };
                             notifier.notify(options, function (err, response) {
@@ -548,7 +548,7 @@
             });
 
             if (config.get("useProxy")) {
-                var session = whatsApp.window.webContents.session;
+                var session = whatsUpp.window.webContents.session;
                 var httpProxy = config.get("httpProxy");
                 var httpsProxy = config.get("httpsProxy") || httpProxy;
                 if (httpProxy) {
@@ -557,100 +557,100 @@
             }
 
             if (config.get("startminimized") != true) {
-                whatsApp.window.show();
+                whatsUpp.window.show();
             }
 
-            whatsApp.window.on('move', (e, evt) => {
-                config.set("posX", whatsApp.window.getBounds().x);
-                config.set("posY", whatsApp.window.getBounds().y);
-                config.set("width", whatsApp.window.getBounds().width);
-                config.set("height", whatsApp.window.getBounds().height);
+            whatsUpp.window.on('move', (e, evt) => {
+                config.set("posX", whatsUpp.window.getBounds().x);
+                config.set("posY", whatsUpp.window.getBounds().y);
+                config.set("width", whatsUpp.window.getBounds().width);
+                config.set("height", whatsUpp.window.getBounds().height);
                 config.saveConfiguration();
             });
 
-            whatsApp.window.on('resize', (e, evt) => {
-                config.set("posX", whatsApp.window.getBounds().x);
-                config.set("posY", whatsApp.window.getBounds().y);
-                config.set("width", whatsApp.window.getBounds().width);
-                config.set("height", whatsApp.window.getBounds().height);
+            whatsUpp.window.on('resize', (e, evt) => {
+                config.set("posX", whatsUpp.window.getBounds().x);
+                config.set("posY", whatsUpp.window.getBounds().y);
+                config.set("width", whatsUpp.window.getBounds().width);
+                config.set("height", whatsUpp.window.getBounds().height);
                 config.saveConfiguration();
             });
 
-            whatsApp.window.on('page-title-updated', onlyOSX((event, title) => {
+            whatsUpp.window.on('page-title-updated', onlyOSX((event, title) => {
                 var count = title.match(/\((\d+)\)/);
                     count = count ? count[1] : '';
                 app.dock.setBadge(count);
                 log.info("Badge updated: " + count);
             }));
 
-            whatsApp.window.on('page-title-updated', onlyLinux((event, title) => {
+            whatsUpp.window.on('page-title-updated', onlyLinux((event, title) => {
                 var count = title.match(/\((\d+)\)/);
                     count = count ? count[1] : '';
 
                 if (parseInt(count) > 0) {
-                    if (!whatsApp.window.isFocused() && global.config.get("quietMode") !== true) {
+                    if (!whatsUpp.window.isFocused() && global.config.get("quietMode") !== true) {
                       log.info("Flashing frame");
-                      whatsApp.window.flashFrame(true);
+                      whatsUpp.window.flashFrame(true);
                     }
                     var badge = NativeImage.createFromPath(app.getAppPath() + "/assets/badges/badge-" + (count > 9 ? 0 : count) +".png");
-                    whatsApp.window.setOverlayIcon(badge, "new messages");
-                    global.whatsApp.setNewMessageIcon();
+                    whatsUpp.window.setOverlayIcon(badge, "new messages");
+                    global.whatsUpp.setNewMessageIcon();
                 } else {
-                    whatsApp.window.setOverlayIcon(null, "no new messages");
-                    global.whatsApp.clearNewMessageIcon();
+                    whatsUpp.window.setOverlayIcon(null, "no new messages");
+                    global.whatsUpp.clearNewMessageIcon();
                 }
                 log.info("Badge updated: " + count);
             }));
 
-            whatsApp.window.on('page-title-updated', onlyWin((event, title) => {
+            whatsUpp.window.on('page-title-updated', onlyWin((event, title) => {
                 var count = title.match(/\((\d+)\)/);
                     count = count ? count[1] : '';
 
                 if (parseInt(count) > 0) {
-                    if (!whatsApp.window.isFocused()) {
-                      whatsApp.window.flashFrame(true);
+                    if (!whatsUpp.window.isFocused()) {
+                      whatsUpp.window.flashFrame(true);
                     }
                     var badge = NativeImage.createFromPath(app.getAppPath() + "/assets/badges/badge-" + (count > 9 ? 0 : count) +".png");
-                    whatsApp.window.setOverlayIcon(badge, "new messages");
-                    global.whatsApp.setNewMessageIcon();
+                    whatsUpp.window.setOverlayIcon(badge, "new messages");
+                    global.whatsUpp.setNewMessageIcon();
                 } else {
-                    whatsApp.window.setOverlayIcon(null, "no new messages");
-                    global.whatsApp.clearNewMessageIcon();
+                    whatsUpp.window.setOverlayIcon(null, "no new messages");
+                    global.whatsUpp.clearNewMessageIcon();
                 }
                 log.info("Badge updated: " + count);
             }));
 
-            whatsApp.window.webContents.on("new-window", (e, url) => {
+            whatsUpp.window.webContents.on("new-window", (e, url) => {
                 require('electron').shell.openExternal(url);
                 e.preventDefault();
             });
 
-            whatsApp.window.on('close', onlyOSX((e) => {
-                if (whatsApp.window.forceClose !== true) {
+            whatsUpp.window.on('close', onlyOSX((e) => {
+                if (whatsUpp.window.forceClose !== true) {
                     e.preventDefault();
-                    whatsApp.window.hide();
+                    whatsUpp.window.hide();
                 }
             }));
 
-            whatsApp.window.on('close', onlyWin((e) => {
-                if (whatsApp.tray == undefined) {
+            whatsUpp.window.on('close', onlyWin((e) => {
+                if (whatsUpp.tray == undefined) {
                     app.quit();
-                } else if (whatsApp.window.forceClose !== true) {
+                } else if (whatsUpp.window.forceClose !== true) {
                     e.preventDefault();
-                    whatsApp.window.hide();
+                    whatsUpp.window.hide();
                 }
             }));
 
-            whatsApp.window.on('close', onlyLinux((e) => {
-                if (whatsApp.tray == undefined) {
+            whatsUpp.window.on('close', onlyLinux((e) => {
+                if (whatsUpp.tray == undefined) {
                     app.quit();
-                } else if (whatsApp.window.forceClose !== true) {
+                } else if (whatsUpp.window.forceClose !== true) {
                     e.preventDefault();
-                    whatsApp.window.hide();
+                    whatsUpp.window.hide();
                 }
             }));
 
-            whatsApp.window.on("close", function(){
+            whatsUpp.window.on("close", function(){
                 if (settings.window) {
                     settings.window.close();
                     settings.window = null;
@@ -658,39 +658,39 @@
             });
 
             // Toggle contextmenu content when window is shown
-            whatsApp.window.on("show", function() {
-                if (whatsApp.tray != undefined) {
-                    whatsApp.trayContextMenu.items[0].visible = false;
-                    whatsApp.trayContextMenu.items[1].visible = true;
+            whatsUpp.window.on("show", function() {
+                if (whatsUpp.tray != undefined) {
+                    whatsUpp.trayContextMenu.items[0].visible = false;
+                    whatsUpp.trayContextMenu.items[1].visible = true;
 
                     // Need to re-set the contextmenu for this to work under Linux
                     // TODO: Only trigger this under Linux
-                    whatsApp.tray.setContextMenu(whatsApp.trayContextMenu);
+                    whatsUpp.tray.setContextMenu(whatsUpp.trayContextMenu);
                 }
             });
 
             // Toggle contextmenu content when window is hidden
-            whatsApp.window.on("hide", function() {
-                if (whatsApp.tray != undefined) {
-                    whatsApp.trayContextMenu.items[0].visible = true;
-                    whatsApp.trayContextMenu.items[1].visible = false;
+            whatsUpp.window.on("hide", function() {
+                if (whatsUpp.tray != undefined) {
+                    whatsUpp.trayContextMenu.items[0].visible = true;
+                    whatsUpp.trayContextMenu.items[1].visible = false;
 
                     // Need to re-set the contextmenu for this to work under Linux
                     // TODO: Only trigger this under Linux
-                    whatsApp.tray.setContextMenu(whatsApp.trayContextMenu);
+                    whatsUpp.tray.setContextMenu(whatsUpp.trayContextMenu);
                 }
             });
 
             app.on('before-quit', onlyOSX(() => {
-                whatsApp.window.forceClose = true;
+                whatsUpp.window.forceClose = true;
             }));
 
             app.on('before-quit', onlyLinux(() => {
-                whatsApp.window.forceClose = true;
+                whatsUpp.window.forceClose = true;
             }));
 
             app.on('before-quit', onlyWin(() => {
-                whatsApp.window.forceClose = true;
+                whatsUpp.window.forceClose = true;
             }));
 
             app.on('window-all-closed', onlyWin(() => {
@@ -807,16 +807,16 @@
     ipcMain.on('phoneinfoupdate', (event, arg) => {
         global.phoneinfo.infos = arg;
         if (arg.info != "NORMAL") {
-            global.whatsApp.setWarningTray();
+            global.whatsUpp.setWarningTray();
         } else {
-            global.whatsApp.setNormalTray();
+            global.whatsUpp.setNormalTray();
         }
     });
     ipcMain.on('notificationClick', (event, arg) => {
-        global.whatsApp.window.show();
-        global.whatsApp.window.setAlwaysOnTop(true);
-        global.whatsApp.window.focus();
-        global.whatsApp.window.setAlwaysOnTop(false);
+        global.whatsUpp.window.show();
+        global.whatsUpp.window.setAlwaysOnTop(true);
+        global.whatsUpp.window.focus();
+        global.whatsUpp.window.setAlwaysOnTop(false);
     });
 
     global.phoneinfo = {
@@ -889,14 +889,14 @@
     }
 
     app.on('ready', () => {
-        whatsApp.init();
+        whatsUpp.init();
         // setting of globalShortcut
         if(config.get("globalshortcut") == true) {
             globalShortcut.register('CmdOrCtrl + Alt + W', function(){
-                if(whatsApp.window.isFocused())
-                    whatsApp.window.hide();
+                if(whatsUpp.window.isFocused())
+                    whatsUpp.window.hide();
                 else
-                    whatsApp.window.show();
+                    whatsUpp.window.show();
             })
         }
     });

@@ -1,4 +1,4 @@
-var whatsApp = require('electron').remote.getGlobal("whatsApp");
+var whatsUpp = require('electron').remote.getGlobal("whatsUpp");
 var phoneinfo = require('electron').remote.getGlobal('phoneinfo');
 
 var PhoneInfoView = {

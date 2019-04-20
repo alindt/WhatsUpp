@@ -1,13 +1,13 @@
-Source: whatsapp-desktop
+Source: whatsupp
 Section: net
 Priority: optional
-Maintainer: Enrico204 <enrico204@gmail.com>
+Maintainer: alindt <whatsupp@cevreau.eu>
 Build-Depends: debhelper (>= 9)
 Standards-Version: 3.9.5
-Homepage: https://github.com/Enrico204/Whatsapp-Desktop
-Vcs-Git: https://github.com/Enrico204/Whatsapp-Desktop.git
+Homepage: https://github.com/alindt/WhatsUpp
+Vcs-Git: https://github.com/alindt/WhatsUpp.git
 
-Package: whatsapp-desktop
+Package: whatsupp
 Architecture: amd64 armhf
 Depends: ${shlibs:Depends}, ${misc:Depends}, libnotify4, gconf2, libgconf-2-4
-Description: Unofficial whatsapp web desktop client for OSX, Linux and Windows. Build with Electron.
+Description: Native desktop app/wrapper for https://web.whatsapp.com. Built with Electron.
