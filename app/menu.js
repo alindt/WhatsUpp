@@ -57,8 +57,12 @@
                     label: _('Reload'),
                     accelerator: 'CmdOrCtrl+R',
                     click: function(item, focusedWindow) {
-                        if (focusedWindow)
+                        if (focusedWindow) {
+                            // Remove ServiceWorker to allow reloading
+                            whatsUpp.window.webContents.unregisterServiceWorker(function(){return true;});
+
                             focusedWindow.reload();
+                        }
                     }
                 },
                 {type: 'separator'},

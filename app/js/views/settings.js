@@ -114,6 +114,11 @@ var SettingsView = {
         }
         config.saveConfiguration();
         config.applyConfiguration();
+
+        // Remove ServiceWorker to allow reloading
+//        whatsUpp.clearCache();
+        whatsUpp.window.webContents.unregisterServiceWorker(function(){return true;});
+
         whatsUpp.window.reload();
     }
 };
