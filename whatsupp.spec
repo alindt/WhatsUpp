@@ -5,7 +5,7 @@
 
 Summary:   WhatsUpp
 Name:      WhatsUpp
-Version:   0.5.0
+Version:   0.5.1
 Release:   1
 License:   GPL
 Group:     None
@@ -56,6 +56,9 @@ rm -rf %{buildroot}
 /usr/share/icons/hicolor/64x64/apps/whatsupp.png
 
 %changelog
+* Sun Apr 21 2018  alindt <whatsupp@cevreau.eu> 0.5.1-1
+- See debian changelog in repo
+
 * Sat Mar 31 2018  Enrico204 <enrico204@gmail.com> 0.5.0-1
 - See debian changelog in repo
 
