@@ -1,7 +1,7 @@
 {
   "name": "WhatsUpp",
   "productName": "WhatsUpp",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "revision": "1",
   "repository": "https://github.com/alindt/WhatsUpp.git",
   "description": "Native desktop app/wrapper for https://web.whatsapp.com. Built with Electron.",

@@ -1,3 +1,9 @@
+whatsapp-desktop (0.5.1-1) unstable; urgency=low
+
+  * Fix 'Chrome 36' error
+
+ -- Alin <whatsupp@cevreau.eu>  Sat, 31 Mar 2018 11:25:47 +0200
+
 whatsapp-desktop (0.5.0-1) unstable; urgency=low
 
   * Bugfix
