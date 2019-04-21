@@ -1,22 +1,25 @@
 {
   "name": "whatsupp",
+  "productName": "WhatsUpp",
   "version": "0.5.1",
+  "revision": "1",
   "license": "GPL-3.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/alindt/WhatsUpp.git"
   },
   "main": "main.js",
-  "author": "alindt",
+  "author": "alindt <whatsupp@cevreau.eu>",
+  "maintainer": "alindt <whatsupp@cevreau.eu>",
   "description": "Native desktop app/wrapper for https://web.whatsapp.com. Built with Electron.",
   "dependencies": {
-    "auto-launch": "^5.0.1",
-    "electron-context-menu": "^0.9.1",
-    "electron-log": "^2.2.7",
-    "gettext-parser": "^1.2.2",
+    "auto-launch": "^5.0.5",
+    "electron-context-menu": "^0.12.0",
+    "electron-log": "^3.0.5",
+    "fs-extra": "^7.0.1",
+    "gettext-parser": "^4.0.0",
     "node-gettext": "^2.0.0",
-    "node-notifier": "^5.1.2",
-    "request": "^2.83.0",
-    "fs-extra": "^7.0.1"
+    "node-notifier": "^5.4.0",
+    "request": "^2.88.0"
   }
 }

@@ -1,8 +1,0 @@
-{
-  "dest": "dist/",
-  "id": "eu.alindt.whatsupp",
-  "icon": "assets/lnx/whatsupp.png",
-  "categories": [
-    "Utility"
-  ]
-}
