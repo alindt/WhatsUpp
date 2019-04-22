@@ -477,7 +477,7 @@
                fileSystem.removeSync(app.getPath('userData') + '/Service Worker/');
            } catch(e) {
                log.warn("Error clearing cache: " + e);
-           };
+           }
         },
 
         openWindow() {
