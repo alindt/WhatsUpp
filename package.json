@@ -11,8 +11,8 @@
     "preinstall": "cd app && yarn",
     "gettext": "xgettext app/*.js -j --omit-header -o app/locale/messages.pot && xgettext app/html/*.html -L JavaScript -j --omit-header -o app/locale/messages.pot",
     "clean": "rm -rf node_modules app/node_modules yarn.lock app/yarn.lock",
-    "build:linux64": "electron-packager ./app \"WhatsUpp\" --out=dist --package-manager=yarn --platform=linux --arch=x64 --electron-version=3.1.8 --icon=assets/icons/whatsupp.png",
-    "build:linux32": "electron-packager ./app \"WhatsUpp\" --out=dist --package-manager=yarn --platform=linux --arch=ia32 --electron-version=3.1.8 --icon=assets/icons/whatsupp.png",
+    "build:linux64": "electron-packager ./app \"WhatsUpp\" --out=dist --package-manager=yarn --platform=linux --arch=x64  --asar --electron-version=3.1.8 --icon=assets/icons/whatsupp.png",
+    "build:linux32": "electron-packager ./app \"WhatsUpp\" --out=dist --package-manager=yarn --platform=linux --arch=ia32 --asar --electron-version=3.1.8 --icon=assets/icons/whatsupp.png",
     "pkg:debian64": "electron-installer-debian --bin WhatsUpp --src dist/WhatsUpp-linux-x64/ --dest dist/pkg --arch amd64 --icon assets/icons/whatsupp.png",
     "pkg:debian32": "electron-installer-debian --bin WhatsUpp --src dist/WhatsUpp-linux-ia32/ --dest dist/pkg --arch i386 --icon assets/icons/whatsupp.png"
   },
