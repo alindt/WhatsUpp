@@ -16,3 +16,4 @@ dummy.tar.bz2
 rpmbuild/
 debian/debhelper-build-stamp
 *.swp
+**/yarn.lock
