@@ -1,0 +1,50 @@
+#!/usr/bin/make -f
+# See debhelper(7) (uncomment to enable)
+# output every command that modifies files on the build system.
+#DH_VERBOSE = 1
+
+# see EXAMPLES in dpkg-buildflags(1) and read /usr/share/dpkg/*
+DPKG_EXPORT_BUILDFLAGS = 1
+include /usr/share/dpkg/default.mk
+
+# see FEATURE AREAS in dpkg-buildflags(1)
+#export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+# see ENVIRONMENT in dpkg-buildflags(1)
+# package maintainers to append CFLAGS
+#export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic
+# package maintainers to append LDFLAGS
+#export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
+
+
+# main packaging script based on dh7 syntax
+%:
+	dh $@
+
+binary-arch:
+	mkdir -p debian/whatsupp/opt/whatsupp/
+	mkdir -p debian/whatsupp/usr/share/applications/
+	mkdir -p debian/whatsupp/usr/share/metainfo/
+	mkdir -p debian/whatsupp/usr/share/icons/hicolor/128x128/apps/
+	mkdir -p debian/whatsupp/usr/share/icons/hicolor/64x64/apps/
+	cp "app/assets/icon/icon@2x.png" debian/whatsupp/usr/share/icons/hicolor/128x128/apps/whatsupp.png
+	cp "app/assets/icon/icon.png" debian/whatsupp/usr/share/icons/hicolor/64x64/apps/whatsupp.png
+	cp whatsupp.desktop debian/whatsupp/usr/share/applications/
+	cp eu.alindt.whatsupp.appdata.xml debian/whatsupp/usr/share/metainfo/
+ifeq ($(DEB_HOST_ARCH),)
+	echo "Target architecture not specified"
+	exit 1
+endif
+
+ifeq ($(DEB_HOST_ARCH),armhf)
+	cp -r dist/WhatsUpp-linux-armv7l/* debian/whatsupp/opt/whatsupp/
+endif
+ifeq ($(DEB_HOST_ARCH),amd64)
+	cp -r dist/WhatsUpp-linux-x64/* debian/whatsupp/opt/whatsupp/
+endif
+
+# debmake generated override targets
+# This is example for Cmake (See http://bugs.debian.org/641051 )
+#override_dh_auto_configure:
+#	dh_auto_configure -- \
+#	-DCMAKE_LIBRARY_PATH=$(DEB_HOST_MULTIARCH)

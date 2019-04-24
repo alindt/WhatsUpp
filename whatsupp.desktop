@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=WhatsUpp
+Comment=WhatsUpp unofficial client
+Exec=/opt/whatsupp/WhatsUpp
+StartupNotify=false
+Terminal=false
+Categories=Network;InstantMessaging;
+Icon=whatsupp
+StartupWMClass=whatsupp

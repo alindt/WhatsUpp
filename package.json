@@ -1,0 +1,41 @@
+{
+  "name": "WhatsUpp",
+  "productName": "WhatsUpp",
+  "version": "0.5.0",
+  "revision": "1",
+  "repository": "https://github.com/alindt/WhatsUpp.git",
+  "description": "Native desktop app/wrapper for https://web.whatsapp.com. Built with Electron.",
+  "main": "main.js",
+  "scripts": {
+    "dev": "electron --debug=5858 ./app",
+    "preinstall": "cd app && yarn",
+    "gettext": "xgettext app/*.js -j --omit-header -o app/locale/messages.pot && xgettext app/html/*.html -L JavaScript -j --omit-header -o app/locale/messages.pot",
+    "clean": "node clean.js",
+    "build:win": "electron-packager ./app \"WhatsUpp\" --out=dist --package-manager=yarn --platform=win32 --arch=x64 --electron-version=1.7.8 --icon=assets/win/whatsupp.ico",
+    "build:osx": "electron-packager ./app \"WhatsUpp\" --out=dist --package-manager=yarn --platform=darwin --arch=x64 --electron-version=1.7.8 --icon=assets/osx/whatsupp.icns",
+    "build:linux": "electron-packager ./app \"WhatsUpp\" --out=dist --package-manager=yarn --platform=linux --arch=x64 --electron-version=1.7.8 --icon=assets/lnx/whatsupp.png",
+    "build:linux32": "electron-packager ./app \"WhatsUpp\" --out=dist --package-manager=yarn --platform=linux --arch=ia32 --electron-version=1.7.8 --icon=assets/win/whatsupp.ico",
+    "build:linuxarmv7l": "electron-packager ./app \"WhatsUpp\" --out=dist --package-manager=yarn --platform=linux --arch=armv7l --electron-version=1.7.8 --icon=assets/win/whatsupp.ico",
+    "build:appimage": "electron-packager ./app \"whatsupp\" --out=dist --package-manager=yarn --platform=linux --arch=x64 --electron-version=1.7.8 --icon=assets/win/whatsupp.ico && ./node_modules/.bin/electron-builder --publish=never --pd dist/whatsupp-linux-x64/ --linux AppImage",
+    "build:flatpak64": "electron-packager ./app \"whatsupp\" --out=dist --package-manager=yarn --platform=linux --arch=x64 --electron-version=1.7.8 --icon=assets/win/whatsupp.ico && cp eu.alindt.whatsupp.appdata.xml dist/whatsupp-linux-x64/ && electron-installer-flatpak --src dist/whatsupp-linux-x64/ --dest dist/ --arch x64 --config flatpak.config.json",
+	"pkg:debian64": "electron-installer-debian --bin WhatsUpp --src dist/WhatsUpp-linux-x64/ --dest dist/pkg --arch amd64 --provides whatsapp-desktop --conflicts whatsapp-desktop"
+  },
+  "devDependencies": {
+    "electron": "^1.7.8",
+    "electron-installer-flatpak": "^0.8.0",
+    "electron-packager": "^8.5.0",
+	"electron-installer-debian": "^1.1.1"
+  },
+  "build": {
+    "appId": "eu.alindt.whatsupp",
+    "linux": {
+      "category": "Utility",
+      "icon": "assets/lnx/"
+    }
+  },
+  "dependencies": {
+    "electron-builder": "^19.50.0",
+    "process-nextick-args": "^1.0.7",
+    "util-deprecate": "^1.0.2"
+  }
+}
