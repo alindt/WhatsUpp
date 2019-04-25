@@ -1,17 +1,17 @@
 ### System details
 
-* OS: [write here your operative system name, version, language]
-* App Version: [write here the app version, or "github" if you're using latest from github]
-* If Linux, Desktop Environment: [write here your desktop environment if on Linux, otherwise leave it blank]
+* OS: [your distribution's name, version, language]
+* App Version: [the app version, or "github" if you're using latest from github (e.g.: 0.5.1)]
+* Desktop Environment: [desktop environment (e.g.: GNOME 3.22)]
 
-### Expected behavior
+### Expected behaviour
 
-[write here what you were expecting from an action (specified below)]
+[what you were expecting from an action (specified below)]
 
-### Actual behavior
+### Actual behaviour
 
-[write here what really happened]
+[what really happened]
 
-### Step to reproduce the behavior
+### Step to reproduce the behaviour
 
-[write here steps to do in order to reproduce the bad behavior, so we can trace and resolve the issue quickly]
+[steps to do in order to reproduce the bad behavior]
