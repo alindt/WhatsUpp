@@ -5,25 +5,24 @@ This project continues the work of [@Enrico204](https://github.com/Enrico204/Wha
 
 ## Features
 
-* ~Cross platform (OSX, Windows x64, Linux x32/x64 and ARM v7l)~ Linux only (ia32/amd64)
-* Native notifications
-* System tray icon
-* Open links in default browser
-* Badge with the number of notifications in the tray/dock/taskbar
-* Dock icon bounces when a new message is received
-* Focus on contact search input via CTRL+F
-* ~Phone info window (s/w versions, battery status, etc)~  FIX NEEDED
-* Auto-launch on login
-* Start minimized to tray icon
-* Logging system (log to console and *userData*/log.log)
-* Apply custom CSS stylesheet
-* Auto-hide menu bar
-* Disabling GPU rendering (useful when dealing with bugged video drivers)
+* ![OK](https://img.shields.io/badge/-OK-green.svg) Linux only (ia32/amd64)
+* ![OK](https://img.shields.io/badge/-OK-green.svg) Native notifications
+* ![OK](https://img.shields.io/badge/-OK-green.svg) System tray icon
+* ![OK](https://img.shields.io/badge/-OK-green.svg) Open links in default browser
+* ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Badge with the number of notifications in the tray/dock/taskbar
+* ![FIX](https://img.shields.io/badge/-FIX-red.svg) Focus on contact search input via CTRL+F
+* ![FIX](https://img.shields.io/badge/-FIX-red.svg) Phone info window (s/w versions, battery status, etc)
+* ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Auto-launch on login
+* ![OK](https://img.shields.io/badge/-OK-green.svg) Start minimized to tray icon
+* ![OK](https://img.shields.io/badge/-OK-green.svg) Logging system (log to console and `$HOME/.config/WhatsUpp/log.log`)
+* ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Apply custom CSS stylesheet
+* ![OK](https://img.shields.io/badge/-OK-green.svg) Auto-hide menu bar
+* ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Disabling GPU rendering (useful when dealing with bugged video drivers)
 * A couple of things can be configured:
-  * Toggle avatar visibility
-  * Toggle preview of the messages visibility
-  * Set the size for the media thumbs
-  * Proxy settings for connection
+  * ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Toggle avatar visibility
+  * ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Toggle preview of the messages visibility
+  * ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Set the size for the media thumbs
+  * ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Proxy settings for connection
 
 ## Command line switches
 
@@ -35,25 +34,17 @@ Contributions are welcome! For feature requests and bug reports please submit an
 
 ## Build from source
 
-To build from the source, run the following commands:
-
 ```
+git clone https://github.com/alindt/WhatsUpp
+cd WhatsUpp
 yarn install
 yarn build:$platform
 ```
 
-where `$platform` can be one of `linux32`, `linux64` or `linux` (builds both).
+`$platform` can be one of `linux32`, `linux64` or `linux` (builds both).
 
 You'll find artifacts in the `./dist/` directory.
 
 ## Run on-the-fly (for devs)
 
 Run `yarn dev` (in project root) instead of compiling the code each time.
-
-## Buy me a beer!
-
-If you find this project useful consider buying me a beer :)
-
-[![Donate](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/alindt/donate)
-[![Donate](https://www.paypalobjects.com/digitalassets/c/website/marketing/apac/C2/logos-buttons/optimize/26_Blue_PayPal_Pill_Button.png)](https://paypal.me/alintraistaru)
-
