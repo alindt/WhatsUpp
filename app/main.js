@@ -314,6 +314,16 @@
       }
       whatsUpp.window.setMenuBarVisibility(config.get('autoHideMenuBar') !== true)
       whatsUpp.window.setAutoHideMenuBar(config.get('autoHideMenuBar') === true)
+
+      if (config.get('escCloseMainWindow')) {
+        globalShortcut.register('Esc', () => {
+          whatsUpp.window.close()
+        })
+      } else {
+        if (globalShortcut.isRegistered('Esc')) {
+          globalShortcut.unregister('Esc')
+        }
+      }
     },
 
     saveConfiguration () {
