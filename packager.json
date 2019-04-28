@@ -1,4 +1,5 @@
 {
+  " vim: set ts=2 sw=2 expandtab:": "vim modeline, not part of data",
   "osx": {
     "title": "WhatsUpp",
     "icon": "assets/osx/whatsupp.icns",
