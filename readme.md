@@ -10,7 +10,7 @@ This project continues the work of [@Enrico204](https://github.com/Enrico204/Wha
 * ![OK](https://img.shields.io/badge/-OK-green.svg) System tray icon
 * ![OK](https://img.shields.io/badge/-OK-green.svg) Open links in default browser
 * ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Badge with the number of notifications in the tray/dock/taskbar
-* ![FIX](https://img.shields.io/badge/-FIX-red.svg) Focus on contact search input via CTRL+F
+* ![OK](https://img.shields.io/badge/-OK-green.svg) Focus on contact search input via CTRL+F
 * ![FIX](https://img.shields.io/badge/-FIX-red.svg) Phone info window (s/w versions, battery status, etc)
 * ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Auto-launch on login
 * ![OK](https://img.shields.io/badge/-OK-green.svg) Start minimized to tray icon

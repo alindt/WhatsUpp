@@ -42,7 +42,7 @@
     // pass in the target node, as well as the observer options
     var observer = new MutationObserver(function (mutations) {
       console.log('Mutations occurred: ', mutations.length)
-      document.querySelector('div[data-asset-chat-background]').classList.add('pane-chat-tile')
+      // document.querySelector('div[data-asset-chat-background]').classList.add('pane-chat-tile')
 
       if (remote.getGlobal('config').currentSettings.darkMode) {
         var elements = document.getElementsByTagName('path')
@@ -51,13 +51,13 @@
         }
       }
 
-      var inputSearch = document.querySelector('input.input-search')
+      var inputSearch = document.querySelector('input[type="text"][title="Search or start new chat"]')
       if (inputSearch) {
         console.log('Adding event listeners')
 
         document.addEventListener('keydown', function (event) {
-          // cmd+k and cmd+f focuses on search input.
-          if ((event.keyCode === 75 || event.keyCode === 70) && event.metaKey === true) { inputSearch.focus() }
+          // ctrl+f focuses on search input.
+          if (event.ctrlKey && event.key === 'f') { inputSearch.focus() }
         })
 
         console.log('Disconnecting the observer')
