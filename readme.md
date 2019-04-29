@@ -9,20 +9,20 @@ This project continues the work of [@Enrico204](https://github.com/Enrico204/Wha
 * ![OK](https://img.shields.io/badge/-OK-green.svg) Native notifications
 * ![OK](https://img.shields.io/badge/-OK-green.svg) System tray icon
 * ![OK](https://img.shields.io/badge/-OK-green.svg) Open links in default browser
-* ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Badge with the number of notifications in the tray/dock/taskbar
-* ![OK](https://img.shields.io/badge/-OK-green.svg) Focus on contact search input via CTRL+F
-* ![FIX](https://img.shields.io/badge/-FIX-red.svg) Phone info window (s/w versions, battery status, etc)
-* ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Auto-launch on login
+* ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Badge with the number of notifications in the tray/dock/taskbar ([#3](https://github.com/alindt/WhatsUpp/issues/3))
+* ![OK](https://img.shields.io/badge/-OK-green.svg) Focus on search bar with CTRL+F
+* ![FIX](https://img.shields.io/badge/-FIX-red.svg) Phone info window (s/w versions, battery status, etc) ([#4](https://github.com/alindt/WhatsUpp/issues/4))
+* ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Auto-launch on login ([#5](https://github.com/alindt/WhatsUpp/issues/5))
 * ![OK](https://img.shields.io/badge/-OK-green.svg) Start minimized to tray icon
 * ![OK](https://img.shields.io/badge/-OK-green.svg) Logging system (log to console and `$HOME/.config/WhatsUpp/log.log`)
-* ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Apply custom CSS stylesheet
+* ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Apply custom CSS stylesheet ([#6](https://github.com/alindt/WhatsUpp/issues/6))
 * ![OK](https://img.shields.io/badge/-OK-green.svg) Auto-hide menu bar
-* ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Disabling GPU rendering (useful when dealing with bugged video drivers)
+* ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Disabling GPU rendering (useful when dealing with bugged video drivers) ([#7](https://github.com/alindt/WhatsUpp/issues/7))
 * A couple of things can be configured:
-  * ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Toggle avatar visibility
-  * ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Toggle preview of the messages visibility
-  * ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Set the size for the media thumbs
-  * ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Proxy settings for connection
+  * ![FIX](https://img.shields.io/badge/-FIX-red.svg) Toggle avatar visibility ([#8](https://github.com/alindt/WhatsUpp/issues/8))
+  * ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Toggle preview of the messages visibility ([#9](https://github.com/alindt/WhatsUpp/issues/9))
+  * ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Set the size for the media thumbs ([#10](https://github.com/alindt/WhatsUpp/issues/10))
+  * ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Proxy settings for connection ([#11](https://github.com/alindt/WhatsUpp/issues/11))
 
 ## Command line switches
 
