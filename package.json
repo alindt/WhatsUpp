@@ -12,7 +12,7 @@
     "preinstall": "cd app && yarn",
     "gettext": "xgettext app/*.js -j --omit-header -o app/locale/messages.pot && xgettext app/html/*.html -L JavaScript -j --omit-header -o app/locale/messages.pot",
     "test": "standard -v",
-    "clean": "rm -rf node_modules app/node_modules yarn.lock app/yarn.lock",
+    "clean": "rm -rf dist node_modules app/node_modules yarn.lock app/yarn.lock",
     "build:linux64": "standard -v && electron-packager ./app \"WhatsUpp\" --out=dist --overwrite --package-manager=yarn --platform=linux --arch=x64  --asar --electron-version=3.1.8 --icon=assets/icons/whatsupp.png",
     "build:linux32": "standard -v && electron-packager ./app \"WhatsUpp\" --out=dist --overwrite --package-manager=yarn --platform=linux --arch=ia32 --asar --electron-version=3.1.8 --icon=assets/icons/whatsupp.png",
     "build": "yarn build:linux32 && yarn build:linux64",
