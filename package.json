@@ -16,8 +16,8 @@
     "build:linux64": "standard -v && electron-packager ./app \"WhatsUpp\" --out=dist --overwrite --package-manager=yarn --platform=linux --arch=x64  --asar --electron-version=3.1.8 --icon=assets/icons/whatsupp.png",
     "build:linux32": "standard -v && electron-packager ./app \"WhatsUpp\" --out=dist --overwrite --package-manager=yarn --platform=linux --arch=ia32 --asar --electron-version=3.1.8 --icon=assets/icons/whatsupp.png",
     "build": "yarn build:linux32 && yarn build:linux64",
-    "pkg:debian64": "electron-installer-debian --bin WhatsUpp --src dist/WhatsUpp-linux-x64/ --dest dist/pkg --arch amd64 --icon assets/icons/whatsupp.png",
-    "pkg:debian32": "electron-installer-debian --bin WhatsUpp --src dist/WhatsUpp-linux-ia32/ --dest dist/pkg --arch i386 --icon assets/icons/whatsupp.png",
+    "pkg:debian64": "electron-installer-debian --bin WhatsUpp --src dist/WhatsUpp-linux-x64/  --dest dist/pkg --arch amd64 --section net --icon assets/icons/whatsupp.png",
+    "pkg:debian32": "electron-installer-debian --bin WhatsUpp --src dist/WhatsUpp-linux-ia32/ --dest dist/pkg --arch i386  --section net --icon assets/icons/whatsupp.png",
     "pkg:debian": "yarn pkg:debian32 && yarn pkg:debian64",
     "pkg": "yarn pkg:debian"
   },
