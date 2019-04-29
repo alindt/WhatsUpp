@@ -30,6 +30,9 @@
   var notifier = require('node-notifier')
   var globalShortcut = require('electron').globalShortcut
   var ContextMenu = require('electron-context-menu')
+  const find = require('find')
+  const pathBasename = require('path').basename
+  const pathDirname = require('path').dirname
 
   const isAlreadyRunning = app.makeSingleInstance((argv, workingDir) => {
     if (whatsUpp.window) {
@@ -92,17 +95,26 @@
     }
   }
 
-  var supportedLocales = ['en_US', 'it_IT']
-
   global.gt = new NodeGettext()
-  for (i in supportedLocales) {
-    var loc = supportedLocales[i]
-    var dir = join(__dirname, 'locale', loc, 'messages.po')
-    log.info(dir)
-    log.info('Loading locale ' + loc)
-    gt.addTranslations(loc, 'messages', gettextParser.po.parse(fileSystem.readFileSync(dir)))
-  }
-  gt.setLocale('en_US')
+
+  var supportedLocales = []
+  var localePaths = find.fileSync('messages.po', join(__dirname, 'locale'))
+
+  localePaths.forEach(
+    function (localePath) {
+      var localeName = pathBasename(pathDirname(localePath))
+      // log.debug('Loading locale ' + localeName + ' (' + localePath + ')')
+      try {
+        gt.addTranslations(localeName, 'messages', gettextParser.po.parse(fileSystem.readFileSync(localePath)))
+        supportedLocales.push(localeName)
+      } catch (err) {
+        log.error(err.message)
+        log.warn('Skipping locale ' + localeName + ' (' + localePath + ')')
+      }
+    })
+
+  log.info('Supported locales: ' + supportedLocales)
+
   gt.setTextDomain('messages')
   global._ = function (t) {
     return gt.gettext(t)
@@ -112,11 +124,13 @@
   var syslang = (process.env.LC_ALL !== undefined ? process.env.LC_ALL
     : (process.env.LANG !== undefined ? process.env.LANG
       : (process.env.LC_MESSAGES !== undefined ? process.env.LC_MESSAGES : 'en-US')))
+
   if (supportedLocales.indexOf(syslang.split('.')[0]) >= 0) {
     log.info('Setting locale ' + syslang.split('.')[0])
     gt.setLocale(syslang.split('.')[0])
   } else {
     log.warn('No supported locale found, defaulting to en_US')
+    gt.setLocale('en_US')
   }
 
   global.autolauncher = new AutoLaunch({ name: app.getName() })

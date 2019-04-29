@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "electron-compile": "^6.4.4",
+    "find": "^0.3.0",
     "process-nextick-args": "^2.0.0",
     "util-deprecate": "^1.0.2"
   },
