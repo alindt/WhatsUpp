@@ -17,7 +17,7 @@ This project continues the work of [@Enrico204](https://github.com/Enrico204/Wha
 * ![OK](https://img.shields.io/badge/-OK-green.svg) Logging system (log to console and `$HOME/.config/WhatsUpp/log.log`)
 * ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Apply custom CSS stylesheet ([#6](https://github.com/alindt/WhatsUpp/issues/6))
 * ![OK](https://img.shields.io/badge/-OK-green.svg) Auto-hide menu bar
-* ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Disabling GPU rendering (useful when dealing with bugged video drivers) ([#7](https://github.com/alindt/WhatsUpp/issues/7))
+* ![OK](https://img.shields.io/badge/-OK-green.svg) Disabling GPU rendering (useful when dealing with bugged video drivers) ([#7](https://github.com/alindt/WhatsUpp/issues/7))
 * A couple of things can be configured:
   * ![FIX](https://img.shields.io/badge/-FIX-red.svg) Toggle avatar visibility ([#8](https://github.com/alindt/WhatsUpp/issues/8))
   * ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Toggle preview of the messages visibility ([#9](https://github.com/alindt/WhatsUpp/issues/9))
