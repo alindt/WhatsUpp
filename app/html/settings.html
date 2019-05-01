@@ -3,14 +3,13 @@
 <head>
   <meta charset="utf-8">
   <script type="text/javascript">
-  window.jQuery = window.$ = require('../js/lib/jquery.min.js');
-  window.Hammer = require('../js/lib/hammer.min.js');
-  window.app = require('electron').remote;
-  _ = window.app.getGlobal("_");
+    window.app = require('electron').remote;
+    _ = window.app.getGlobal('_');
+    window.jQuery = window.$ = require('jquery');
   </script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="../css/settings.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+  <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.css">
   <script src="../js/views/settings.js"></script>
   <title></title>
 </head>
@@ -125,5 +124,9 @@
       </div>
     </div>
   </main>
+  <script>
+    window.Materialize = require('materialize-css');
+    M.AutoInit();
+  </script>
 </body>
 </html>
