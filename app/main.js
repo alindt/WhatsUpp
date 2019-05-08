@@ -33,6 +33,7 @@
   const find = require('find')
   const pathBasename = require('path').basename
   const pathDirname = require('path').dirname
+  const AppSession = require('electron').session
 
   const isAlreadyRunning = app.makeSingleInstance((argv, workingDir) => {
     if (whatsUpp.window) {
@@ -546,9 +547,7 @@
         window: whatsUpp.window
       })
 
-      //            whatsUpp.window.loadURL('https://web.whatsapp.com');
-      // Use a 'safe' User-Agent
-      whatsUpp.window.loadURL('https://web.whatsapp.com', { userAgent: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36' })
+      whatsUpp.window.loadURL('https://web.whatsapp.com')
 
       whatsUpp.window.webContents.on('did-finish-load', function () {
         if (groupLinkOpenRequested != null) {
@@ -932,6 +931,11 @@
   }
 
   app.on('ready', () => {
+    // Cleanup UA string for "conformity"...
+    var r = new RegExp(' (' + pjson.name + '|electron)/[^\\s]+', 'gi')
+    var ua = AppSession.defaultSession.getUserAgent().replace(r, '')
+    AppSession.defaultSession.setUserAgent(ua)
+
     whatsUpp.init()
     // setting of globalShortcut
     if (config.get('globalshortcut') === true) {
