@@ -564,7 +564,8 @@
         // Checking for new version
         var ep = 'https://api.github.com/repos/alindt/WhatsUpp/releases/latest'
         log.info('Checking for new versions (current version ' + pjson.version + ')')
-        request.get({ url: ep, headers: { 'User-Agent': 'WhatsUpp' } }, function (err, response, body) {
+        var ua = AppSession.defaultSession.getUserAgent()
+        request.get({ url: ep, headers: { 'User-Agent': ua } }, function (err, response, body) {
           if (!err && response !== undefined && response.statusCode === 200) {
             var ghinfo = JSON.parse(body)
             global.whatsUpp.newVersion = ghinfo['tag_name']
@@ -815,9 +816,38 @@
         about.window.show()
       } else {
         about.openWindow()
-        about.window.setMenu(null)
-        about.window.setMenuBarVisibility(false)
+        about.createMenu()
       }
+    },
+
+    createMenu () {
+      about.menu = new AppMenu()
+      about.menu.append(new MenuItem(
+        {
+          label: 'close',
+          visible: false,
+          accelerator: 'esc',
+          click () { about.window.close() }
+        })
+      )
+      about.menu.append(new MenuItem(
+        {
+          label: 'Toggle DevTools',
+          accelerator: 'Ctrl+Shift+I',
+          visible: false,
+          click () { about.window.toggleDevTools() }
+        })
+      )
+      about.menu.append(new MenuItem(
+        {
+          label: 'Reload settings view',
+          accelerator: 'CmdOrCtrl+r',
+          visible: false,
+          click () { about.window.reload() }
+        })
+      )
+      about.window.setMenu(about.menu)
+      about.window.setMenuBarVisibility(false)
     },
 
     openWindow () {

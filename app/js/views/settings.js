@@ -5,6 +5,7 @@
 var whatsUpp = require('electron').remote.getGlobal('whatsUpp')
 var settings = require('electron').remote.getGlobal('settings')
 var config = require('electron').remote.getGlobal('config')
+// const log = require('electron-log')
 // no-unused-vars:: const { dialog } = require('electron').remote
 
 var SettingsView = {
@@ -24,9 +25,18 @@ var SettingsView = {
       settings.window.close()
     })
 
+    $('#customThumbSizeCheck').on('change', () => {
+      $('#thumb-size').toggle()
+    })
+
     $('#useProxy').on('change', () => {
+      $('#proxies').toggle()
       $('#httpProxy').prop('disabled', !($('#useProxy').is(':checked')))
       $('#httpsProxy').prop('disabled', !($('#useProxy').is(':checked')))
+    })
+
+    $('#custombackground_enable').on('change', () => {
+      $('#custombackground').toggle()
     })
   },
 
@@ -39,6 +49,7 @@ var SettingsView = {
       $('#background_opacity').val(config.get('background-opacity'))
     } else {
       $('#background_opacity').val('100')
+      $('#custombackground').hide()
     }
 
     if (config.get('fontSize') !== undefined) {
@@ -56,10 +67,18 @@ var SettingsView = {
     $('#trayicon').attr('checked', config.get('trayicon') !== false)
     $('#avatars').attr('checked', config.get('hideAvatars'))
     $('#previews').attr('checked', config.get('hidePreviews'))
-    if (config.get('thumbSize')) {
+
+    if (config.get('thumbSize') !== undefined) {
+      $('#customThumbSizeCheck').prop('checked', true)
+      $('#thumb-size').show()
       $('#thumb-size').val(config.get('thumbSize'))
+    } else {
+      $('#customThumbSizeCheck').prop('checked', false)
+      $('#thumb-size').hide()
     }
+
     $('#useProxy').attr('checked', config.get('useProxy'))
+    if ($('#useProxy').is(':checked')) { $('#proxies').show() } else { $('#proxies').hide() }
     $('#httpProxy').val(config.get('httpProxy'))
     $('#httpsProxy').val(config.get('httpsProxy'))
     $('#httpProxy').prop('disabled', !($('#useProxy').is(':checked')))
@@ -96,7 +115,6 @@ var SettingsView = {
     }
 
     config.set('fontSize', $('#fontSize').val())
-
     config.set('darkMode', $('#darkMode').is(':checked'))
     config.set('blurImages', $('#blurImages').is(':checked'))
     config.set('escCloseMainWindow', $('#escCloseMainWindow').is(':checked'))
@@ -109,6 +127,13 @@ var SettingsView = {
     config.set('hidePreviews', $('#previews').is(':checked'))
     config.set('thumbSize', parseInt($('#thumb-size').val(), 10))
     config.set('trayicon', $('#trayicon').is(':checked'))
+
+    if ($('#customThumbSizeCheck').is(':checked')) {
+      config.set('thumbSize', $('#thumb-size').val())
+    } else {
+      config.unSet('thumbSize')
+    }
+
     if ($('#useProxy').is(':checked')) {
       config.set('useProxy', $('#useProxy').is(':checked'))
       config.set('httpProxy', $('#httpProxy').val())
@@ -118,6 +143,7 @@ var SettingsView = {
       config.unSet('httpProxy')
       config.unSet('httpsProxy')
     }
+
     config.saveConfiguration()
     config.applyConfiguration()
 
