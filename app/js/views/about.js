@@ -9,7 +9,7 @@ $(document).ready(() => {
   if (whatsUpp.newVersion === null) {
     $('#appupdates').css('color', 'red')
     $('#appupdates').html('Error while checking for updates.')
-  } else if (whatsUpp.newVersion !== 'v' + pjson.version) {
+  } else if (whatsUpp.newVersion !== pjson.version) {
     $('#appupdates').html('A new version is available: ' + whatsUpp.newVersion + '!')
   }
 })

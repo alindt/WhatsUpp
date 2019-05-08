@@ -4,6 +4,8 @@
   "productName": "WhatsUpp",
   "version": "0.6.1",
   "revision": "1",
+  "reltype": "stable",
+  "releases": "https://api.github.com/repos/alindt/WhatsUpp/releases",
   "license": "GPL-3.0",
   "repository": {
     "type": "git",

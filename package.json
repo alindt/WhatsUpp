@@ -4,7 +4,9 @@
   "productName": "WhatsUpp",
   "version": "0.6.1",
   "revision": "1",
+  "reltype": "stable",
   "repository": "https://github.com/alindt/WhatsUpp.git",
+  "releases": "https://api.github.com/repos/alindt/WhatsUpp/releases",
   "description": "Native desktop app/wrapper for https://web.whatsapp.com. Built with Electron.",
   "main": "app/main.js",
   "scripts": {

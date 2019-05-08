@@ -34,6 +34,7 @@
   const pathBasename = require('path').basename
   const pathDirname = require('path').dirname
   const AppSession = require('electron').session
+  // var rel = require('/dev/shm/releases.json')
 
   const isAlreadyRunning = app.makeSingleInstance((argv, workingDir) => {
     if (whatsUpp.window) {
@@ -562,19 +563,33 @@
           )
         }
         // Checking for new version
-        var ep = 'https://api.github.com/repos/alindt/WhatsUpp/releases/latest'
+        var ep = pjson.releases
         log.info('Checking for new versions (current version ' + pjson.version + ')')
         var ua = AppSession.defaultSession.getUserAgent()
         request.get({ url: ep, headers: { 'User-Agent': ua } }, function (err, response, body) {
           if (!err && response !== undefined && response.statusCode === 200) {
             var ghinfo = JSON.parse(body)
-            global.whatsUpp.newVersion = ghinfo['tag_name']
-            if (ghinfo['tag_name'][0] === 'v' &&
-                                ghinfo['tag_name'] !== 'v' + pjson.version &&
-                                ghinfo['tag_name'].indexOf('beta') === -1) {
-              log.info('A new version is available: ' + ghinfo['tag_name'])
+            var versions = []
+            var verregexp = null
+
+            if (pjson.reltype === 'stable') {
+              verregexp = /^\d+\.\d+\.\d+/
+            } else if (pjson.reltype === 'dev') {
+              verregexp = /^\d{8,}/
+            }
+
+            for (var kk = 0; kk < ghinfo.length; kk++) {
+              if (ghinfo[kk].name.match(verregexp)) {
+                versions.push(ghinfo[kk].name)
+              }
+            }
+
+            if (!versions.length) { versions.push('') }
+            global.whatsUpp.newVersion = versions[0]
+            if (whatsUpp.newVersion.localeCompare(pjson.version) === 1) {
+              log.info('A new version is available: ' + whatsUpp.newVersion)
               var options = {
-                title: 'WhatsUpp',
+                title: pjson.productName,
                 message: 'A new version is available, download it at https://github.com/alindt/WhatsUpp',
                 open: 'https://github.com/alindt/WhatsUpp/releases/latest',
                 sound: true
@@ -586,7 +601,7 @@
               log.info('Already on latest version')
             }
           } else {
-            log.warn('Error checking updates (status ' + (response !== undefined ? response.statusCode : ' not available') + '): ' + err)
+            log.warn('Error while checking for updates (status ' + (response !== undefined ? response.statusCode : ' not available') + '): ' + err)
           }
         })
       })
