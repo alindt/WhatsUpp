@@ -595,7 +595,7 @@
                 sound: true
               }
               notifier.notify(options, function (err, response) {
-                if (!err) log.warn('Error: ' + err)
+                if (err) log.warn('Error: ' + err)
               })
             } else {
               log.info('Already on latest version')

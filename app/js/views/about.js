@@ -9,7 +9,7 @@ $(document).ready(() => {
   if (whatsUpp.newVersion === null) {
     $('#appupdates').css('color', 'red')
     $('#appupdates').html('Error while checking for updates.')
-  } else if (whatsUpp.newVersion !== pjson.version) {
+  } else if (whatsUpp.newVersion.localeCompare(pjson.version) === 1) {
     $('#appupdates').html('A new version is available: ' + whatsUpp.newVersion + '!')
   }
 })
