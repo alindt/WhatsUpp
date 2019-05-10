@@ -219,7 +219,7 @@
         }
 
         var noAvatar = 'div#pane-side img[draggable="false"] { display: none !important; }'
-        var noPreview = '.chat-secondary .chat-status{z-index: -999;}'
+        var noPreview = 'div > div > span[title] > span { display: none !important; }'
 
         // var noWAupdate = 'header + span > div > div > div > span[data-icon="alert-update] { display: none !important; }'
         var noWAupdate = 'div#side > span { display: none !important; }'
