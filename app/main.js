@@ -221,6 +221,10 @@
         var noAvatar = 'div#pane-side img[draggable="false"] { display: none !important; }'
         var noPreview = '.chat-secondary .chat-status{z-index: -999;}'
 
+        // var noWAupdate = 'header + span > div > div > div > span[data-icon="alert-update] { display: none !important; }'
+        var noWAupdate = 'div#side > span { display: none !important; }'
+        this.insertCSS(noWAupdate)
+
         var thumbSize = '.image-thumb { width: ' + config.currentSettings.thumbSize + 'px  !important;' +
                 'height: ' + config.currentSettings.thumbSize + 'px !important;}' +
                 '.image-thumb img.image-thumb-body { width: auto !important;' +
