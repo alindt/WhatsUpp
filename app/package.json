@@ -2,7 +2,7 @@
   " vim: set ts=2 sw=2 expandtab:": "vim modeline, not part of data",
   "name": "whatsupp",
   "productName": "WhatsUpp",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "revision": "1",
   "reltype": "stable",
   "releases": "https://api.github.com/repos/alindt/WhatsUpp/releases",
