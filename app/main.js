@@ -34,9 +34,9 @@
   const pathBasename = require('path').basename
   const pathDirname = require('path').dirname
   const AppSession = require('electron').session
-  // var rel = require('/dev/shm/releases.json')
+  const isPrimaryInstance = app.requestSingleInstanceLock()
 
-  const isAlreadyRunning = app.makeSingleInstance((argv, workingDir) => {
+  app.on('second-instance', (event, argv, cwd) => {
     if (whatsUpp.window) {
       if (whatsUpp.window.isMinimized()) {
         whatsUpp.window.restore()
@@ -67,7 +67,8 @@
     }
   })
 
-  if (isAlreadyRunning) {
+  if (!isPrimaryInstance) {
+    log.warn('App is already running. Quit.')
     app.quit()
   }
 
