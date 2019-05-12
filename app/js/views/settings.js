@@ -31,8 +31,8 @@ var SettingsView = {
 
     $('#useProxy').on('change', () => {
       $('#proxies').toggle()
-      $('#httpProxy').prop('disabled', !($('#useProxy').is(':checked')))
-      $('#httpsProxy').prop('disabled', !($('#useProxy').is(':checked')))
+      $('#proxyType').prop('disabled', !($('#useProxy').is(':checked')))
+      $('#proxyURI').prop('disabled', !($('#useProxy').is(':checked')))
     })
 
     $('#custombackground_enable').on('change', () => {
@@ -79,10 +79,8 @@ var SettingsView = {
 
     $('#useProxy').attr('checked', config.get('useProxy'))
     if ($('#useProxy').is(':checked')) { $('#proxies').show() } else { $('#proxies').hide() }
-    $('#httpProxy').val(config.get('httpProxy'))
-    $('#httpsProxy').val(config.get('httpsProxy'))
-    $('#httpProxy').prop('disabled', !($('#useProxy').is(':checked')))
-    $('#httpsProxy').prop('disabled', !($('#useProxy').is(':checked')))
+    $('#proxyType').val(config.get('proxyType'))
+    $('#proxyURI').val(config.get('proxyURI'))
 
     $('#customcss_enable').attr('checked', config.get('customcss') !== undefined)
     if ($('#customcss_enable').is(':checked')) {
@@ -134,14 +132,14 @@ var SettingsView = {
       config.unSet('thumbSize')
     }
 
-    if ($('#useProxy').is(':checked')) {
+    if ($('#proxyType').val() != null && $('#proxyURI').val() !== '') {
       config.set('useProxy', $('#useProxy').is(':checked'))
-      config.set('httpProxy', $('#httpProxy').val())
-      config.set('httpsProxy', $('#httpsProxy').val())
+      config.set('proxyType', $('#proxyType').val())
+      config.set('proxyURI', $('#proxyURI').val())
     } else {
-      config.unSet('useProxy')
-      config.unSet('httpProxy')
-      config.unSet('httpsProxy')
+      config.set('useProxy', false)
+      config.unSet('proxyType')
+      config.unSet('proxyURI')
     }
 
     config.saveConfiguration()

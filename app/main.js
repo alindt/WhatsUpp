@@ -277,18 +277,6 @@
         }
       })
 
-      if (config.get('useProxy')) {
-        var session = whatsUpp.window.webContents.session
-        var httpProxy = config.get('httpProxy')
-        var httpsProxy = config.get('httpsProxy') || httpProxy
-        if (httpProxy) {
-          log.info('Proxy configured: ' + 'http=' + httpProxy + ';https=' + httpsProxy)
-          session.setProxy('http=' + httpProxy + ';https=' + httpsProxy, function () {})
-        } else {
-          log.info('No proxy')
-        }
-      }
-
       // OSX Dock menu
       if (process.platform === 'darwin') {
         const dockMenu = AppMenu.buildFromTemplate([
@@ -610,15 +598,6 @@
           }
         })
       })
-
-      if (config.get('useProxy')) {
-        var session = whatsUpp.window.webContents.session
-        var httpProxy = config.get('httpProxy')
-        var httpsProxy = config.get('httpsProxy') || httpProxy
-        if (httpProxy) {
-          session.setProxy('http=' + httpProxy + ';https=' + httpsProxy, () => {})
-        }
-      }
 
       if (config.get('startminimized') !== true) {
         whatsUpp.window.show()
@@ -985,6 +964,16 @@
     var r = new RegExp(' (' + pjson.name + '|electron)/[^\\s]+', 'gi')
     var ua = AppSession.defaultSession.getUserAgent().replace(r, '')
     AppSession.defaultSession.setUserAgent(ua)
+
+    if (config.get('useProxy')) {
+      var proxyType = config.get('proxyType')
+      var proxyURI = config.get('proxyURI')
+      var proxy = proxyType + '://' + proxyURI
+      log.info('Proxy configured: ' + proxy)
+      AppSession.defaultSession.setProxy({ proxyRules: proxy }, function () {})
+    } else {
+      log.info('No proxy')
+    }
 
     whatsUpp.init()
     // setting of globalShortcut

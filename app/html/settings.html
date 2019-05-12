@@ -140,13 +140,18 @@
       </p>
 
       <div id="proxies" class="row">
-        <div class="input-field col s6">
-          <input id="httpProxy" type="text" class="validate">
-          <span id="httpProxy_label" for="httpProxy" data-error="This field is required if you are using a proxy"><script> document.write(_("HTTP Proxy")); </script></span>
+        <div class="input-field col">
+          <select id="proxyType" class="browser-default">
+            <option value="" disabled selected>Proxy type</option>
+            <option value="http">HTTP</option>
+            <option value="https">HTTPS</option>
+            <option value="socks">SOCKS</option>
+            <option value="socks4">SOCKS4</option>
+            <option value="socks5">SOCKS5</option>
+          </select>
         </div>
-        <div class="input-field col s6">
-          <input id="httpsProxy" type="text" placeholder="Leave blank to use the same" class="validate">
-          <span id="httpsProxy_label" for="httpsProxy" ><script> document.write(_("HTTPS Proxy")); </script></span>
+        <div class="input-field col s8">
+          <input id="proxyURI" type="text" placeholder="<IP|URL>:PORT" class="validate">
         </div>
       </div>
 
