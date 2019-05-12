@@ -357,7 +357,7 @@
           log.error('Configuration empty! This should not happen!')
           return
         }
-        fileSystem.writeFileSync(app.getPath('userData') + '/settings.json', JSON.stringify(config.currentSettings), 'utf-8')
+        fileSystem.writeFileSync(app.getPath('userData') + '/settings.json', JSON.stringify(config.currentSettings, null, 2), 'utf-8')
         config.saveTimeout = null
       }, 2000)
     },
