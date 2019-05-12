@@ -5,7 +5,7 @@ This project continues the work of [@Enrico204](https://github.com/Enrico204/Wha
 
 ## Features
 
-* ![OK](https://img.shields.io/badge/-OK-green.svg) Linux only (ia32/amd64)
+* ![OK](https://img.shields.io/badge/-OK-green.svg) Linux only (~ia32~/amd64)
 * ![OK](https://img.shields.io/badge/-OK-green.svg) Native notifications
 * ![OK](https://img.shields.io/badge/-OK-green.svg) System tray icon
 * ![OK](https://img.shields.io/badge/-OK-green.svg) Open links in default browser
@@ -17,12 +17,12 @@ This project continues the work of [@Enrico204](https://github.com/Enrico204/Wha
 * ![OK](https://img.shields.io/badge/-OK-green.svg) Logging system (log to console and `$HOME/.config/WhatsUpp/log.log`)
 * ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Apply custom CSS stylesheet ([#6](https://github.com/alindt/WhatsUpp/issues/6))
 * ![OK](https://img.shields.io/badge/-OK-green.svg) Auto-hide menu bar
-* ![OK](https://img.shields.io/badge/-OK-green.svg) Disabling GPU rendering (useful when dealing with bugged video drivers) ([#7](https://github.com/alindt/WhatsUpp/issues/7))
+* ![OK](https://img.shields.io/badge/-OK-green.svg) Disabling GPU rendering (useful when dealing with bugged video drivers)
 * A couple of things can be configured:
-  * ![FIX](https://img.shields.io/badge/-FIX-red.svg) Toggle avatar visibility ([#8](https://github.com/alindt/WhatsUpp/issues/8))
-  * ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Toggle preview of the messages visibility ([#9](https://github.com/alindt/WhatsUpp/issues/9))
+  * ![OK](https://img.shields.io/badge/-OK-green.svg) Toggle avatar visibility
+  * ![OK](https://img.shields.io/badge/-OK-green.svg) Toggle preview of the messages visibility
   * ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Set the size for the media thumbs ([#10](https://github.com/alindt/WhatsUpp/issues/10))
-  * ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Proxy settings for connection ([#11](https://github.com/alindt/WhatsUpp/issues/11))
+  * ![OK](https://img.shields.io/badge/-OK-green.svg) Proxy settings for connection
 
 ## Command line switches
 
