@@ -15,7 +15,7 @@ This project continues the work of [@Enrico204](https://github.com/Enrico204/Wha
 * ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Auto-launch on login ([#5](https://github.com/alindt/WhatsUpp/issues/5))
 * ![OK](https://img.shields.io/badge/-OK-green.svg) Start minimized to tray icon
 * ![OK](https://img.shields.io/badge/-OK-green.svg) Logging system (log to console and `$HOME/.config/WhatsUpp/log.log`)
-* ![TEST](https://img.shields.io/badge/-TEST-blue.svg) Apply custom CSS stylesheet ([#6](https://github.com/alindt/WhatsUpp/issues/6))
+* ![FIX](https://img.shields.io/badge/-FIX-red.svg) Apply custom CSS stylesheet ([#6](https://github.com/alindt/WhatsUpp/issues/6))
 * ![OK](https://img.shields.io/badge/-OK-green.svg) Auto-hide menu bar
 * ![OK](https://img.shields.io/badge/-OK-green.svg) Disabling GPU rendering (useful when dealing with bugged video drivers)
 * A couple of things can be configured:
