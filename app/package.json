@@ -23,7 +23,7 @@
     "find": "^0.3.0",
     "fs-extra": "^7.0.1",
     "gettext-parser": "^4.0.0",
-    "jquery": "3.4.0",
+    "jquery": "3.5.0",
     "materialize-css": "1.0.0",
     "node-gettext": "^2.0.0",
     "node-notifier": "^5.4.0",
