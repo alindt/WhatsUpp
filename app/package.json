@@ -27,6 +27,7 @@
     "materialize-css": "1.0.0",
     "node-gettext": "^2.0.0",
     "node-notifier": "^5.4.0",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "got":"^12.1.0"
   }
 }
