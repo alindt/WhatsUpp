@@ -13,23 +13,23 @@
 (function (scope) {
   'use strict'
 
-  var app = require('electron').app
-  var AppMenu = require('electron').Menu
-  var MenuItem = require('electron').MenuItem
-  var AppTray = require('electron').Tray
-  var fileSystem = require('fs-extra')
-  var NativeImage = require('electron').nativeImage
-  var BrowserWindow = require('electron').BrowserWindow
-  var NodeGettext = require('node-gettext')
-  var gettextParser = require('gettext-parser')
-  var AutoLaunch = require('auto-launch')
-  var log = require('electron-log')
-  var join = require('path').join
-  var request = require('request')
-  var pjson = require('./package.json')
-  var notifier = require('node-notifier')
-  var globalShortcut = require('electron').globalShortcut
-  var ContextMenu = require('electron-context-menu')
+  const app = require('electron').app
+  const AppMenu = require('electron').Menu
+  const MenuItem = require('electron').MenuItem
+  const AppTray = require('electron').Tray
+  const fileSystem = require('fs-extra')
+  const NativeImage = require('electron').nativeImage
+  const BrowserWindow = require('electron').BrowserWindow
+  const NodeGettext = require('node-gettext')
+  const gettextParser = require('gettext-parser')
+  const AutoLaunch = require('auto-launch')
+  const log = require('electron-log')
+  const join = require('path').join
+  const request = require('request')
+  const pjson = require('./package.json')
+  const notifier = require('node-notifier')
+  const globalShortcut = require('electron').globalShortcut
+  const ContextMenu = require('electron-context-menu')
   const find = require('find')
   const pathBasename = require('path').basename
   const pathDirname = require('path').dirname
@@ -44,9 +44,9 @@
       whatsUpp.window.show()
     }
 
-    var groupLinkOpenRequested = null
+    let groupLinkOpenRequested = null
     if (argv.length > 1) {
-      for (var i = 0; i < argv.length; i++) {
+      for (let i = 0; i < argv.length; i++) {
         if (argv[i].indexOf('https://chat.whatsapp.com') >= 0) {
           groupLinkOpenRequested = argv[i]
           log.info('Opening a group link: ' + groupLinkOpenRequested)
@@ -87,9 +87,9 @@
 
   log.info('Log init, file ' + app.getPath('userData') + '/log.log')
 
-  var groupLinkOpenRequested = null
+  let groupLinkOpenRequested = null
   if (process.argv.length > 1) {
-    for (var i = 0; i < process.argv.length; i++) {
+    for (let i = 0; i < process.argv.length; i++) {
       if (process.argv[i].indexOf('https://chat.whatsapp.com') >= 0) {
         groupLinkOpenRequested = process.argv[i]
         log.info('Opening a group link: ' + groupLinkOpenRequested)
@@ -100,12 +100,12 @@
 
   global.gt = new NodeGettext()
 
-  var supportedLocales = []
-  var localePaths = find.fileSync('messages.po', join(__dirname, 'locale'))
+  const supportedLocales = []
+  const localePaths = find.fileSync('messages.po', join(__dirname, 'locale'))
 
   localePaths.forEach(
     function (localePath) {
-      var localeName = pathBasename(pathDirname(localePath))
+      const localeName = pathBasename(pathDirname(localePath))
       // log.debug('Loading locale ' + localeName + ' (' + localePath + ')')
       try {
         gt.addTranslations(localeName, 'messages', gettextParser.po.parse(fileSystem.readFileSync(localePath)))
@@ -124,9 +124,11 @@
   }
 
   // Setting default language to system language if available
-  var syslang = (process.env.LC_ALL !== undefined ? process.env.LC_ALL
-    : (process.env.LANG !== undefined ? process.env.LANG
-      : (process.env.LC_MESSAGES !== undefined ? process.env.LC_MESSAGES : 'en-US')))
+  const syslang = (process.env.LC_ALL !== undefined
+    ? process.env.LC_ALL
+    : (process.env.LANG !== undefined
+        ? process.env.LANG
+        : (process.env.LC_MESSAGES !== undefined ? process.env.LC_MESSAGES : 'en-US')))
 
   if (supportedLocales.indexOf(syslang.split('.')[0]) >= 0) {
     log.info('Setting locale ' + syslang.split('.')[0])
@@ -175,9 +177,9 @@
 
     loadConfiguration () {
       log.info('Loading configuration')
-      var settingsFile = app.getPath('userData') + '/settings.json'
+      const settingsFile = app.getPath('userData') + '/settings.json'
       try {
-        var data = fileSystem.readFileSync(settingsFile)
+        const data = fileSystem.readFileSync(settingsFile)
         if (data !== '' && data !== '{}' && data !== '[]') {
           config.currentSettings = JSON.parse(data)
           log.info('Configuration loaded from ' + settingsFile)
@@ -202,36 +204,37 @@
         whatsUpp.window.maximize()
       }
       whatsUpp.window.webContents.on('dom-ready', function (event, two) {
-        var fontSize = config.get('fontSize')
+        let fontSize = config.get('fontSize')
         fontSize = (fontSize === undefined) ? 'normal' : fontSize
-        var fontCSS = (fontSize !== 'normal') ? 'font-size:' + fontSize + ' !important;' : ''
+        const fontCSS = (fontSize !== 'normal') ? 'font-size:' + fontSize + ' !important;' : ''
         this.insertCSS('* { text-rendering: optimizeSpeed !important; -webkit-font-smoothing: subpixel-antialiased !important; ' +
                     fontCSS + '}')
 
-        var imgpath = config.get('background-image')
+        const imgpath = config.get('background-image')
         if (imgpath !== undefined) {
           // var img = new Buffer(fileSystem.readFileSync(imgpath)).toString('base64')
-          var img = new Buffer.from(fileSystem.readFileSync(imgpath)).toString('base64')
-          var opacity = parseFloat(config.get('background-opacity')) / 100.0
-          var mime = (imgpath.endsWith('.jpg') || imgpath.endsWith('.jpeg')) ? 'image/jpg'
+          const img = new Buffer.from(fileSystem.readFileSync(imgpath)).toString('base64')
+          const opacity = parseFloat(config.get('background-opacity')) / 100.0
+          const mime = (imgpath.endsWith('.jpg') || imgpath.endsWith('.jpeg'))
+            ? 'image/jpg'
             : ((imgpath.endsWith('.png') ? 'image/png' : ((imgpath.endsWith('.gif') ? 'image/gif' : ''))))
           this.insertCSS('.pane-chat-tile { background-image: url(data:' + mime + ';base64,' + img + ') !important; background-size: cover !important; opacity: ' +
                         opacity + ' !important; max-width: 100% !important; }')
         }
 
-        var noAvatar = 'div#pane-side img[draggable="false"] { display: none !important; }'
-        var noPreview = 'div > div > span[title] > span { display: none !important; }'
+        const noAvatar = 'div#pane-side img[draggable="false"] { display: none !important; }'
+        const noPreview = 'div > div > span[title] > span { display: none !important; }'
 
         // var noWAupdate = 'header + span > div > div > div > span[data-icon="alert-update] { display: none !important; }'
-        var noWAupdate = 'div#side > span { display: none !important; }'
+        const noWAupdate = 'div#side > span { display: none !important; }'
         this.insertCSS(noWAupdate)
 
-        var thumbSize = '.image-thumb { width: ' + config.currentSettings.thumbSize + 'px  !important;' +
+        const thumbSize = '.image-thumb { width: ' + config.currentSettings.thumbSize + 'px  !important;' +
                 'height: ' + config.currentSettings.thumbSize + 'px !important;}' +
                 '.image-thumb img.image-thumb-body { width: auto !important;' +
                 'height: ' + config.currentSettings.thumbSize + 'px !important;}'
 
-        var darkMode = '#pane-side, #pane-side div div div div div div, #side header, #side header div div' +
+        const darkMode = '#pane-side, #pane-side div div div div div div, #side header, #side header div div' +
                 '#side div, #side div div, #side div div button, #side div div label, #side div div input,' +
                 '#main footer, #main footer div, #main footer div div, #main header, #main header div div span,' +
                 '#main header div div div span' +
@@ -248,7 +251,7 @@
                 ' { background-color: #2E2C2B !important;, background-image: none !important; }\n' +
                 '.chat-title, .header-title, .chat-body div span { color: white; }'
 
-        var blurImages = 'div.message-in img, div.message-out img { filter: contrast(25%) blur(8px) grayscale(75%); } \n' +
+        const blurImages = 'div.message-in img, div.message-out img { filter: contrast(25%) blur(8px) grayscale(75%); } \n' +
                 'div.message-in:hover img, div.message-out:hover img { filter: none; }'
 
         if (config.currentSettings.hideAvatars) {
@@ -280,13 +283,15 @@
       // OSX Dock menu
       if (process.platform === 'darwin') {
         const dockMenu = AppMenu.buildFromTemplate([
-          { label: 'Show main window',
+          {
+            label: 'Show main window',
             click () {
               whatsUpp.window.show()
               whatsUpp.window.setAlwaysOnTop(true)
               whatsUpp.window.focus()
               whatsUpp.window.setAlwaysOnTop(false)
-            } }
+            }
+          }
         ])
         app.dock.setMenu(dockMenu)
         app.on('activate', (event, hasVisibleWindows) => {
@@ -450,7 +455,7 @@
     createTray () {
       log.info('Creating tray icon')
       // var trayImg = __dirname + '/assets/img/trayTemplate.png'
-      var trayImg = join(__dirname, 'assets', 'img', 'trayTemplate.png')
+      let trayImg = join(__dirname, 'assets', 'img', 'trayTemplate.png')
       // Darwin requires black/white/transparent icon, other platforms does not
       if (process.platform !== 'darwin') {
         // trayImg = __dirname + '/assets/icon/icon.png'
@@ -460,26 +465,32 @@
 
       // Setting up a trayicon context menu
       whatsUpp.trayContextMenu = AppMenu.buildFromTemplate([
-        { label: _('Show'),
+        {
+          label: _('Show'),
           visible: config.get('startminimized'), // Hide this option on start
           click: function () {
             whatsUpp.window.show()
             whatsUpp.window.setAlwaysOnTop(true)
             whatsUpp.window.focus()
             whatsUpp.window.setAlwaysOnTop(false)
-          } },
+          }
+        },
 
-        { label: _('Hide'),
+        {
+          label: _('Hide'),
           visible: !config.get('startminimized'), // Show this option on start
           click: function () {
             whatsUpp.window.hide()
-          } },
+          }
+        },
 
         // Quit WhatsUpp
-        { label: _('Quit'),
+        {
+          label: _('Quit'),
           click: function () {
             app.quit()
-          } }
+          }
+        }
       ])
       whatsUpp.tray.setContextMenu(whatsUpp.trayContextMenu)
 
@@ -519,21 +530,21 @@
     openWindow () {
       log.info('Open main window')
       whatsUpp.window = new BrowserWindow({
-        'y': config.get('posY'),
-        'x': config.get('posX'),
-        'width': config.get('width'),
-        'height': config.get('height'),
-        'minWidth': 600,
-        'minHeight': 600,
+        y: config.get('posY'),
+        x: config.get('posX'),
+        width: config.get('width'),
+        height: config.get('height'),
+        minWidth: 600,
+        minHeight: 600,
         // "type": "toolbar",
-        'title': 'WhatsUpp',
-        'show': false,
-        'autoHideMenuBar': config.get('autoHideMenuBar') === true,
+        title: 'WhatsUpp',
+        show: false,
+        autoHideMenuBar: config.get('autoHideMenuBar') === true,
         // 'icon': __dirname + '/assets/icon/icon.png',
-        'icon': join(__dirname, 'assets', 'icon', 'icon.png'),
-        'webPreferences': {
-          'nodeIntegration': false,
-          'preload': join(__dirname, 'js', 'injected.js')
+        icon: join(__dirname, 'assets', 'icon', 'icon.png'),
+        webPreferences: {
+          nodeIntegration: false,
+          preload: join(__dirname, 'js', 'injected.js')
         }
       })
 
@@ -556,14 +567,14 @@
           )
         }
         // Checking for new version
-        var ep = pjson.releases
+        const ep = pjson.releases
         log.info('Checking for new versions (current version ' + pjson.version + ')')
-        var ua = AppSession.defaultSession.getUserAgent()
+        const ua = AppSession.defaultSession.getUserAgent()
         request.get({ url: ep, headers: { 'User-Agent': ua } }, function (err, response, body) {
           if (!err && response !== undefined && response.statusCode === 200) {
-            var ghinfo = JSON.parse(body)
-            var versions = []
-            var verregexp = null
+            const ghinfo = JSON.parse(body)
+            const versions = []
+            let verregexp = null
 
             if (pjson.reltype === 'stable') {
               verregexp = /^\d+\.\d+\.\d+/
@@ -571,7 +582,7 @@
               verregexp = /^\d{8,}/
             }
 
-            for (var kk = 0; kk < ghinfo.length; kk++) {
+            for (let kk = 0; kk < ghinfo.length; kk++) {
               if (ghinfo[kk].name.match(verregexp)) {
                 versions.push(ghinfo[kk].name)
               }
@@ -581,7 +592,7 @@
             global.whatsUpp.newVersion = versions[0]
             if (whatsUpp.newVersion.localeCompare(pjson.version) === 1) {
               log.info('A new version is available: ' + whatsUpp.newVersion)
-              var options = {
+              const options = {
                 title: pjson.productName,
                 message: 'A new version is available, download it at https://github.com/alindt/WhatsUpp',
                 open: 'https://github.com/alindt/WhatsUpp/releases/latest',
@@ -620,14 +631,14 @@
       })
 
       whatsUpp.window.on('page-title-updated', onlyOSX((event, title) => {
-        var count = title.match(/\((\d+)\)/)
+        let count = title.match(/\((\d+)\)/)
         count = count ? count[1] : ''
         app.dock.setBadge(count)
         log.info('Badge updated: ' + count)
       }))
 
       whatsUpp.window.on('page-title-updated', onlyLinux((event, title) => {
-        var count = title.match(/\((\d+)\)/)
+        let count = title.match(/\((\d+)\)/)
         count = count ? count[1] : ''
 
         if (parseInt(count) > 0) {
@@ -635,7 +646,7 @@
             log.info('Flashing frame')
             whatsUpp.window.flashFrame(true)
           }
-          var badge = NativeImage.createFromPath(app.getAppPath() + '/assets/badges/badge-' + (count > 9 ? 0 : count) + '.png')
+          const badge = NativeImage.createFromPath(app.getAppPath() + '/assets/badges/badge-' + (count > 9 ? 0 : count) + '.png')
           whatsUpp.window.setOverlayIcon(badge, 'new messages')
           global.whatsUpp.setNewMessageIcon()
         } else {
@@ -646,14 +657,14 @@
       }))
 
       whatsUpp.window.on('page-title-updated', onlyWin((event, title) => {
-        var count = title.match(/\((\d+)\)/)
+        let count = title.match(/\((\d+)\)/)
         count = count ? count[1] : ''
 
         if (parseInt(count) > 0) {
           if (!whatsUpp.window.isFocused()) {
             whatsUpp.window.flashFrame(true)
           }
-          var badge = NativeImage.createFromPath(app.getAppPath() + '/assets/badges/badge-' + (count > 9 ? 0 : count) + '.png')
+          const badge = NativeImage.createFromPath(app.getAppPath() + '/assets/badges/badge-' + (count > 9 ? 0 : count) + '.png')
           whatsUpp.window.setOverlayIcon(badge, 'new messages')
           global.whatsUpp.setNewMessageIcon()
         } else {
@@ -786,13 +797,13 @@
     openWindow () {
       settings.window = new BrowserWindow(
         {
-          'width': 550,
-          'height': 550,
-          'resizable': true,
-          'center': true,
-          'frame': true,
-          'webPreferences': {
-            'nodeIntegration': true
+          width: 550,
+          height: 550,
+          resizable: true,
+          center: true,
+          frame: true,
+          webPreferences: {
+            nodeIntegration: true
           }
         }
       )
@@ -852,13 +863,13 @@
     openWindow () {
       about.window = new BrowserWindow(
         {
-          'width': 600,
-          'height': 450,
-          'resizable': true,
-          'center': true,
-          'frame': true,
-          'webPreferences': {
-            'nodeIntegration': true
+          width: 600,
+          height: 450,
+          resizable: true,
+          center: true,
+          frame: true,
+          webPreferences: {
+            nodeIntegration: true
           }
         }
       )
@@ -938,13 +949,13 @@
     openWindow () {
       phoneinfo.window = new BrowserWindow(
         {
-          'width': 500,
-          'height': 500,
-          'resizable': true,
-          'center': true,
-          'frame': true,
-          'webPreferences': {
-            'nodeIntegration': true
+          width: 500,
+          height: 500,
+          resizable: true,
+          center: true,
+          frame: true,
+          webPreferences: {
+            nodeIntegration: true
           }
         }
       )
@@ -961,14 +972,14 @@
 
   app.on('ready', () => {
     // Cleanup UA string for "conformity"...
-    var r = new RegExp(' (' + pjson.name + '|electron)/[^\\s]+', 'gi')
-    var ua = AppSession.defaultSession.getUserAgent().replace(r, '')
+    const r = new RegExp(' (' + pjson.name + '|electron)/[^\\s]+', 'gi')
+    const ua = AppSession.defaultSession.getUserAgent().replace(r, '')
     AppSession.defaultSession.setUserAgent(ua)
 
     if (config.get('useProxy')) {
-      var proxyType = config.get('proxyType')
-      var proxyURI = config.get('proxyURI')
-      var proxy = proxyType + '://' + proxyURI
+      const proxyType = config.get('proxyType')
+      const proxyURI = config.get('proxyURI')
+      const proxy = proxyType + '://' + proxyURI
       log.info('Proxy configured: ' + proxy)
       AppSession.defaultSession.setProxy({ proxyRules: proxy }, function () {})
     } else {

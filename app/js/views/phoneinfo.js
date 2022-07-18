@@ -3,9 +3,9 @@
 /* global $ */
 
 // var whatsUpp = require('electron').remote.getGlobal('whatsUpp')
-var phoneinfo = require('electron').remote.getGlobal('phoneinfo')
+const phoneinfo = require('electron').remote.getGlobal('phoneinfo')
 
-var PhoneInfoView = {
+const PhoneInfoView = {
   bindEvents () {
     // $this = this
     $('#close-button').on('click', () => {

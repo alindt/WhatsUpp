@@ -4,27 +4,27 @@
 (function () {
   const { ipcRenderer } = require('electron')
   const { remote } = require('electron')
-  var updatePhoneInfoInterval = null
+  let updatePhoneInfoInterval = null
 
   function updatePhoneInfo () {
     if (window.Store === undefined || window.Store.Conn === undefined) {
       return
     }
     ipcRenderer.send('phoneinfoupdate', {
-      'info': window.Store.Stream.info,
-      'me': '+' + window.Store.Conn.me.split('@')[0],
-      'battery': window.Store.Conn.battery,
-      'plugged': window.Store.Conn.plugged,
-      'platform': window.Store.Conn.platform,
-      'phoneActive': window.Store.Stream.phoneActive,
-      'phone': {
-        'manufacturer': window.Store.Conn.phone.device_manufacturer,
-        'model': window.Store.Conn.phone.device_model,
-        'mcc': window.Store.Conn.phone.mcc,
-        'mnc': window.Store.Conn.phone.mnc,
-        'os_build_number': window.Store.Conn.phone.os_build_number,
-        'os_version': window.Store.Conn.phone.os_version,
-        'wa_version': window.Store.Conn.phone.wa_version
+      info: window.Store.Stream.info,
+      me: '+' + window.Store.Conn.me.split('@')[0],
+      battery: window.Store.Conn.battery,
+      plugged: window.Store.Conn.plugged,
+      platform: window.Store.Conn.platform,
+      phoneActive: window.Store.Stream.phoneActive,
+      phone: {
+        manufacturer: window.Store.Conn.phone.device_manufacturer,
+        model: window.Store.Conn.phone.device_model,
+        mcc: window.Store.Conn.phone.mcc,
+        mnc: window.Store.Conn.phone.mnc,
+        os_build_number: window.Store.Conn.phone.os_build_number,
+        os_version: window.Store.Conn.phone.os_version,
+        wa_version: window.Store.Conn.phone.wa_version
       }
     })
     if (updatePhoneInfoInterval != null) {
@@ -45,13 +45,13 @@
       // document.querySelector('div[data-asset-chat-background]').classList.add('pane-chat-tile')
 
       if (remote.getGlobal('config').currentSettings.darkMode) {
-        var elements = document.getElementsByTagName('path')
-        for (var i = 0; i < elements.length; i++) {
+        const elements = document.getElementsByTagName('path')
+        for (let i = 0; i < elements.length; i++) {
           elements[i].setAttribute('fill', 'white')
         }
       }
 
-      var inputSearch = document.querySelector('input[type="text"][title="Search or start new chat"]')
+      const inputSearch = document.querySelector('input[type="text"][title="Search or start new chat"]')
       if (inputSearch) {
         console.log('Adding event listeners')
 
@@ -65,7 +65,7 @@
       }
     })
 
-    var config = { childList: true, subtree: true }
+    const config = { childList: true, subtree: true }
     observer.observe(document.querySelector('body'), config)
   }, false)
 
@@ -80,13 +80,13 @@
     }
   }, 200)
 
-  var NativeNotification = Notification
+  let NativeNotification = Notification
   // Notification = function (title, options) {
   NativeNotification = function (title, options) {
     if (remote.getGlobal('config').currentSettings.quietMode) {
       return
     }
-    var notification = new NativeNotification(title, options)
+    const notification = new NativeNotification(title, options)
 
     notification.addEventListener('click', function () {
       ipcRenderer.send('notificationClick')
