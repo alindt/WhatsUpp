@@ -2,13 +2,13 @@
 
 /* global $, _ */
 
-var whatsUpp = require('electron').remote.getGlobal('whatsUpp')
-var settings = require('electron').remote.getGlobal('settings')
-var config = require('electron').remote.getGlobal('config')
+const whatsUpp = require('electron').remote.getGlobal('whatsUpp')
+const settings = require('electron').remote.getGlobal('settings')
+const config = require('electron').remote.getGlobal('config')
 // const log = require('electron-log')
 // no-unused-vars:: const { dialog } = require('electron').remote
 
-var SettingsView = {
+const SettingsView = {
   bindEvents () {
     // $this = this
     $('#save-button').on('click', (e) => {

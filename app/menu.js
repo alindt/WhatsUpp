@@ -5,7 +5,7 @@
 (function (scope) {
   'use strict'
 
-  var template = [
+  const template = [
     {
       label: '&' + _('Edit'),
       submenu: [
@@ -171,7 +171,7 @@
   ]
 
   if (process.platform === 'darwin') {
-    var name = 'WhatsUpp'
+    const name = 'WhatsUpp'
     template.unshift({
       label: '&' + name,
       submenu: [

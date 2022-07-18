@@ -2,7 +2,7 @@
   " vim: set ts=2 sw=2 expandtab:": "vim modeline, not part of data",
   "name": "whatsupp",
   "productName": "WhatsUpp",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "revision": "1",
   "reltype": "stable",
   "repository": "https://github.com/alindt/WhatsUpp.git",
@@ -15,8 +15,8 @@
     "gettext": "xgettext app/*.js -j --omit-header -o app/locale/messages.pot && xgettext app/html/*.html -L JavaScript -j --omit-header -o app/locale/messages.pot",
     "test": "standard -v",
     "clean": "rm -rf dist node_modules app/node_modules yarn.lock app/yarn.lock",
-    "build:linux64": "standard -v && electron-packager ./app \"WhatsUpp\" --out=dist --overwrite --package-manager=yarn --platform=linux --arch=x64  --asar --electron-version=5.0.1 --icon=assets/icons/whatsupp.png",
-    "build-dev:linux64": "standard -v && electron-packager ./app \"WhatsUpp-dev\" --out=dist --overwrite --package-manager=yarn --platform=linux --arch=x64  --asar --electron-version=5.0.1 --icon=assets/icons/whatsupp.png",
+    "build:linux64": "standard -v && electron-packager ./app \"WhatsUpp\" --out=dist --overwrite --package-manager=yarn --platform=linux --arch=x64  --asar --electron-version=19.0.8 --icon=assets/icons/whatsupp.png",
+    "build-dev:linux64": "standard -v && electron-packager ./app \"WhatsUpp-dev\" --out=dist --overwrite --package-manager=yarn --platform=linux --arch=x64  --asar --electron-version=19.0.8 --icon=assets/icons/whatsupp.png",
     "build": "yarn build:linux64",
     "build-dev": "yarn build-dev:linux64",
     "pkg:debian64": "electron-installer-debian --bin WhatsUpp --src dist/WhatsUpp-linux-x64/  --dest dist/pkg --arch amd64 --section net --icon assets/icons/whatsupp.png",
@@ -27,19 +27,20 @@
     "pkg-dev": "yarn pkg-dev:debian"
   },
   "devDependencies": {
-    "electron": "5.0.1",
-    "electron-installer-debian": "^1.1.1",
-    "electron-packager": "^13.1.1",
-    "fs-extra": "^7.0.1",
-    "standard": "^12.0.1"
+    "electron": "^19.0.8",
+    "electron-installer-debian": "^3.1.0",
+    "electron-packager": "^15.5.1",
+    "fs-extra": "^10.1.0",
+    "standard": "^17.0.0"
   },
   "dependencies": {
     "electron-compile": "^6.4.4",
     "find": "^0.3.0",
-    "jquery": "3.4.0",
+    "jquery": "3.6.0",
     "materialize-css": "1.0.0",
     "process-nextick-args": "^2.0.0",
-    "util-deprecate": "^1.0.2"
+    "util-deprecate": "^1.0.2",
+    "yarn": "^1.22.19"
   },
   "build": {
     "appId": "eu.alindt.whatsupp",
